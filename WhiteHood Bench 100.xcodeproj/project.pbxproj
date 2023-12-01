@@ -1,0 +1,588 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		826D067A2B19F3A200679984 /* WhiteHood_Bench_100App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D06792B19F3A200679984 /* WhiteHood_Bench_100App.swift */; };
+		826D067C2B19F3A200679984 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D067B2B19F3A200679984 /* ContentView.swift */; };
+		826D067E2B19F3A400679984 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 826D067D2B19F3A400679984 /* Assets.xcassets */; };
+		826D06812B19F3A400679984 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 826D06802B19F3A400679984 /* Preview Assets.xcassets */; };
+		826D068B2B19F3A500679984 /* WhiteHood_Bench_100Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D068A2B19F3A500679984 /* WhiteHood_Bench_100Tests.swift */; };
+		826D06952B19F3A500679984 /* WhiteHood_Bench_100UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D06942B19F3A500679984 /* WhiteHood_Bench_100UITests.swift */; };
+		826D06972B19F3A500679984 /* WhiteHood_Bench_100UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D06962B19F3A500679984 /* WhiteHood_Bench_100UITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		826D06872B19F3A500679984 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 826D066E2B19F3A200679984 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 826D06752B19F3A200679984;
+			remoteInfo = "WhiteHood Bench 100";
+		};
+		826D06912B19F3A500679984 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 826D066E2B19F3A200679984 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 826D06752B19F3A200679984;
+			remoteInfo = "WhiteHood Bench 100";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		826D06762B19F3A200679984 /* WhiteHood Bench 100.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WhiteHood Bench 100.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		826D06792B19F3A200679984 /* WhiteHood_Bench_100App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteHood_Bench_100App.swift; sourceTree = "<group>"; };
+		826D067B2B19F3A200679984 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		826D067D2B19F3A400679984 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		826D06802B19F3A400679984 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		826D06862B19F3A500679984 /* WhiteHood Bench 100Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WhiteHood Bench 100Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		826D068A2B19F3A500679984 /* WhiteHood_Bench_100Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteHood_Bench_100Tests.swift; sourceTree = "<group>"; };
+		826D06902B19F3A500679984 /* WhiteHood Bench 100UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WhiteHood Bench 100UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		826D06942B19F3A500679984 /* WhiteHood_Bench_100UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteHood_Bench_100UITests.swift; sourceTree = "<group>"; };
+		826D06962B19F3A500679984 /* WhiteHood_Bench_100UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteHood_Bench_100UITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		826D06732B19F3A200679984 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		826D06832B19F3A500679984 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		826D068D2B19F3A500679984 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		826D066D2B19F3A200679984 = {
+			isa = PBXGroup;
+			children = (
+				826D06782B19F3A200679984 /* WhiteHood Bench 100 */,
+				826D06892B19F3A500679984 /* WhiteHood Bench 100Tests */,
+				826D06932B19F3A500679984 /* WhiteHood Bench 100UITests */,
+				826D06772B19F3A200679984 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		826D06772B19F3A200679984 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				826D06762B19F3A200679984 /* WhiteHood Bench 100.app */,
+				826D06862B19F3A500679984 /* WhiteHood Bench 100Tests.xctest */,
+				826D06902B19F3A500679984 /* WhiteHood Bench 100UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		826D06782B19F3A200679984 /* WhiteHood Bench 100 */ = {
+			isa = PBXGroup;
+			children = (
+				826D06792B19F3A200679984 /* WhiteHood_Bench_100App.swift */,
+				826D067B2B19F3A200679984 /* ContentView.swift */,
+				826D067D2B19F3A400679984 /* Assets.xcassets */,
+				826D067F2B19F3A400679984 /* Preview Content */,
+			);
+			path = "WhiteHood Bench 100";
+			sourceTree = "<group>";
+		};
+		826D067F2B19F3A400679984 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				826D06802B19F3A400679984 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		826D06892B19F3A500679984 /* WhiteHood Bench 100Tests */ = {
+			isa = PBXGroup;
+			children = (
+				826D068A2B19F3A500679984 /* WhiteHood_Bench_100Tests.swift */,
+			);
+			path = "WhiteHood Bench 100Tests";
+			sourceTree = "<group>";
+		};
+		826D06932B19F3A500679984 /* WhiteHood Bench 100UITests */ = {
+			isa = PBXGroup;
+			children = (
+				826D06942B19F3A500679984 /* WhiteHood_Bench_100UITests.swift */,
+				826D06962B19F3A500679984 /* WhiteHood_Bench_100UITestsLaunchTests.swift */,
+			);
+			path = "WhiteHood Bench 100UITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		826D06752B19F3A200679984 /* WhiteHood Bench 100 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 826D069A2B19F3A500679984 /* Build configuration list for PBXNativeTarget "WhiteHood Bench 100" */;
+			buildPhases = (
+				826D06722B19F3A200679984 /* Sources */,
+				826D06732B19F3A200679984 /* Frameworks */,
+				826D06742B19F3A200679984 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "WhiteHood Bench 100";
+			productName = "WhiteHood Bench 100";
+			productReference = 826D06762B19F3A200679984 /* WhiteHood Bench 100.app */;
+			productType = "com.apple.product-type.application";
+		};
+		826D06852B19F3A500679984 /* WhiteHood Bench 100Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 826D069D2B19F3A500679984 /* Build configuration list for PBXNativeTarget "WhiteHood Bench 100Tests" */;
+			buildPhases = (
+				826D06822B19F3A500679984 /* Sources */,
+				826D06832B19F3A500679984 /* Frameworks */,
+				826D06842B19F3A500679984 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				826D06882B19F3A500679984 /* PBXTargetDependency */,
+			);
+			name = "WhiteHood Bench 100Tests";
+			productName = "WhiteHood Bench 100Tests";
+			productReference = 826D06862B19F3A500679984 /* WhiteHood Bench 100Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		826D068F2B19F3A500679984 /* WhiteHood Bench 100UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 826D06A02B19F3A500679984 /* Build configuration list for PBXNativeTarget "WhiteHood Bench 100UITests" */;
+			buildPhases = (
+				826D068C2B19F3A500679984 /* Sources */,
+				826D068D2B19F3A500679984 /* Frameworks */,
+				826D068E2B19F3A500679984 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				826D06922B19F3A500679984 /* PBXTargetDependency */,
+			);
+			name = "WhiteHood Bench 100UITests";
+			productName = "WhiteHood Bench 100UITests";
+			productReference = 826D06902B19F3A500679984 /* WhiteHood Bench 100UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		826D066E2B19F3A200679984 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					826D06752B19F3A200679984 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					826D06852B19F3A500679984 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 826D06752B19F3A200679984;
+					};
+					826D068F2B19F3A500679984 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 826D06752B19F3A200679984;
+					};
+				};
+			};
+			buildConfigurationList = 826D06712B19F3A200679984 /* Build configuration list for PBXProject "WhiteHood Bench 100" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 826D066D2B19F3A200679984;
+			productRefGroup = 826D06772B19F3A200679984 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				826D06752B19F3A200679984 /* WhiteHood Bench 100 */,
+				826D06852B19F3A500679984 /* WhiteHood Bench 100Tests */,
+				826D068F2B19F3A500679984 /* WhiteHood Bench 100UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		826D06742B19F3A200679984 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				826D06812B19F3A400679984 /* Preview Assets.xcassets in Resources */,
+				826D067E2B19F3A400679984 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		826D06842B19F3A500679984 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		826D068E2B19F3A500679984 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		826D06722B19F3A200679984 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				826D067C2B19F3A200679984 /* ContentView.swift in Sources */,
+				826D067A2B19F3A200679984 /* WhiteHood_Bench_100App.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		826D06822B19F3A500679984 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				826D068B2B19F3A500679984 /* WhiteHood_Bench_100Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		826D068C2B19F3A500679984 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				826D06952B19F3A500679984 /* WhiteHood_Bench_100UITests.swift in Sources */,
+				826D06972B19F3A500679984 /* WhiteHood_Bench_100UITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		826D06882B19F3A500679984 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 826D06752B19F3A200679984 /* WhiteHood Bench 100 */;
+			targetProxy = 826D06872B19F3A500679984 /* PBXContainerItemProxy */;
+		};
+		826D06922B19F3A500679984 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 826D06752B19F3A200679984 /* WhiteHood Bench 100 */;
+			targetProxy = 826D06912B19F3A500679984 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		826D06982B19F3A500679984 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		826D06992B19F3A500679984 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		826D069B2B19F3A500679984 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WhiteHood Bench 100/Preview Content\"";
+				DEVELOPMENT_TEAM = CR68PP2Z3F;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "temp.WhiteHood-Bench-100";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		826D069C2B19F3A500679984 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WhiteHood Bench 100/Preview Content\"";
+				DEVELOPMENT_TEAM = CR68PP2Z3F;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "temp.WhiteHood-Bench-100";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		826D069E2B19F3A500679984 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CR68PP2Z3F;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "temp.WhiteHood-Bench-100Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WhiteHood Bench 100.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WhiteHood Bench 100";
+			};
+			name = Debug;
+		};
+		826D069F2B19F3A500679984 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CR68PP2Z3F;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "temp.WhiteHood-Bench-100Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WhiteHood Bench 100.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WhiteHood Bench 100";
+			};
+			name = Release;
+		};
+		826D06A12B19F3A500679984 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CR68PP2Z3F;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "temp.WhiteHood-Bench-100UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "WhiteHood Bench 100";
+			};
+			name = Debug;
+		};
+		826D06A22B19F3A500679984 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CR68PP2Z3F;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "temp.WhiteHood-Bench-100UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "WhiteHood Bench 100";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		826D06712B19F3A200679984 /* Build configuration list for PBXProject "WhiteHood Bench 100" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				826D06982B19F3A500679984 /* Debug */,
+				826D06992B19F3A500679984 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		826D069A2B19F3A500679984 /* Build configuration list for PBXNativeTarget "WhiteHood Bench 100" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				826D069B2B19F3A500679984 /* Debug */,
+				826D069C2B19F3A500679984 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		826D069D2B19F3A500679984 /* Build configuration list for PBXNativeTarget "WhiteHood Bench 100Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				826D069E2B19F3A500679984 /* Debug */,
+				826D069F2B19F3A500679984 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		826D06A02B19F3A500679984 /* Build configuration list for PBXNativeTarget "WhiteHood Bench 100UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				826D06A12B19F3A500679984 /* Debug */,
+				826D06A22B19F3A500679984 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 826D066E2B19F3A200679984 /* Project object */;
+}
