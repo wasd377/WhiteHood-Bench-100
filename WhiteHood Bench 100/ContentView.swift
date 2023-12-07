@@ -8,19 +8,30 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @EnvironmentObject var vm: ContentViewViewModel
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        
+        NavigationView {
+            VStack {
+                if vm.progress.introCompleted == true {
+                    MenuView()
+                } else {
+                    IntroView()
+                    
+                }
+            }
         }
-        .padding()
     }
-}
+    }
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(ContentViewViewModel())
+        
     }
 }

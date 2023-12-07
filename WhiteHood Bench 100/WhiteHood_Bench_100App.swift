@@ -12,6 +12,7 @@ struct WhiteHood_Bench_100App: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(ContentViewViewModel())
         }
     }
 }
