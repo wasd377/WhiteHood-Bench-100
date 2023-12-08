@@ -15,7 +15,7 @@ struct ContentView: View {
         
         NavigationView {
             VStack {
-                if vm.progress.introCompleted == true {
+                if vm.introduction.introCompleted == true {
                     MenuView()
                 } else {
                     IntroView()

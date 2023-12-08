@@ -58,9 +58,9 @@ struct IntroView: View {
                     .padding(.bottom)
                 
                 LargeButton(title: "Начать", disabled: Int(startingRepsString) ?? 0 > 0 && Int(startingBenchString) ?? 0 > 0 ? false :  true, backgroundColor: .black) {
-                    vm.progress.introCompleted = true
-                    vm.progress.currentWeek = 1
-                    vm.progress.realBench = Int(startingRepsString)! > 1 ? false: true
+                    vm.introduction.introCompleted = true
+                    vm.progress.currentDay = 1
+                    vm.introduction.realBench = Int(startingRepsString)! > 1 ? false: true
                     vm.progress.currentBench = Int(startingBenchString)!
                 }
                 

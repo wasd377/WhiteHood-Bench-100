@@ -9,8 +9,10 @@ import Foundation
 
 class ContentViewViewModel: ObservableObject {
     @Published var progress: Progress
+    @Published var introduction: Introduction
     
     init() {
-        progress = Progress(currentBench: 0, currentWeek: 1, introCompleted: false, realBench: true)
+        progress = Progress(currentBench: 0, currentDay: 1)
+        introduction = Introduction(introCompleted: false, realBench: true)
     }
 }

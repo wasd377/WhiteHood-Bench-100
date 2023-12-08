@@ -7,11 +7,16 @@
 
 import Foundation
 
-struct Progress: Codable {
+struct Progress: Codable, Hashable {
     var currentBench : Int
-    var currentWeek : Int
-    var introCompleted : Bool
-    var realBench : Bool
+    var currentDay : Int
+ 
+}
+
+struct Introduction: Codable {
+    var introCompleted: Bool
+    var realBench: Bool
+
 }
 
 struct Workout: Codable {

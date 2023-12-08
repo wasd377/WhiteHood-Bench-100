@@ -69,6 +69,6 @@ struct LargeButton: View {
                 .disabled(self.disabled)
             Spacer(minLength: LargeButton.buttonHorizontalMargins)
         }
-        .frame(maxWidth:.infinity)
+        .frame(maxWidth: 250)
     }
 }
