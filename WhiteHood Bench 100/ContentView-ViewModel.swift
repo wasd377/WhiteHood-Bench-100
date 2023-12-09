@@ -8,11 +8,15 @@
 import Foundation
 
 class ContentViewViewModel: ObservableObject {
-    @Published var progress: Progress
+    @Published var progress: [Progress]
     @Published var introduction: Introduction
+    @Published var history: [Workout]
     
     init() {
-        progress = Progress(currentBench: 0, currentDay: 1)
+        progress = []
         introduction = Introduction(introCompleted: false, realBench: true)
+        history = []
+       
+        
     }
 }

@@ -45,7 +45,7 @@ struct WorkoutView: View {
 
 struct WorkoutView_Previews: PreviewProvider {
     
-    static var workout = Workout(id: 1, week: 1, isDone: false, weight: 65, reps: 3)
+    static var workout = Workout(id: 1, day: 1, isDone: false, weight: 65, reps: 3)
     
     static var previews: some View {
         WorkoutView(workout: workout)

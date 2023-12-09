@@ -16,47 +16,39 @@ struct ProgressView: View {
     let xMarkValues = stride(from: 0, to: 57, by: 7).map{ $0 }
     
     let startingData = [
-        Progress(currentBench: 70, currentDay: 1)
-    ]
-    
-    var formulaEpley = 1337
-    var formulaBrzycki = 31337
+        Progress(day: 1, weight: UserDefaults.standard.double(forKey: "StartBench"))]
     
     @State private var formulaAverage = 0
     
-    func countAverage() {
-        formulaAverage = (formulaEpley + formulaBrzycki) / 2
+    @State var formulaBrzycki = 0.0
+    @State var formulaEpley = 0.0
+ 
+    
+  func countAverage() {
+        if vm.history.isEmpty {
+            return
+        } else {
+            
+            formulaBrzycki = Double(vm.history.last!.weight)*36/(37-Double(vm.history.last!.reps))
+            formulaEpley = Double(vm.history.last!.weight) * (1 + Double(vm.history.last!.reps)/30)
+        }
+
     }
-    
-    
-    let progressData = [
-    Progress(currentBench: 56, currentDay: 2),
-    Progress(currentBench: 58, currentDay: 5),
-    Progress(currentBench: 62, currentDay: 8),
-    Progress(currentBench: 65, currentDay: 11),
-    Progress(currentBench: 71, currentDay: 14),
-    Progress(currentBench: 75, currentDay: 18),
-    Progress(currentBench: 79, currentDay: 21),
-    Progress(currentBench: 83, currentDay: 25),
-    Progress(currentBench: 87, currentDay: 30),
-    Progress(currentBench: 90, currentDay: 34),
-    Progress(currentBench: 93, currentDay: 41),
-    Progress(currentBench: 105, currentDay: 47),
-    Progress(currentBench: 125, currentDay: 56)
-    ]
            
            var body: some View {
                
                let yAxisSize = [
                 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130
                ]
+               
+               var formulaAverage = Double((formulaBrzycki+formulaEpley)/2)
                   
                    VStack {
                        Chart {
-                           ForEach(progressData, id: \.self) { item in
+                           ForEach(vm.history, id: \.self) { item in
                                LineMark(
-                                x: .value("Time", item.currentDay),
-                                y: .value("EV", item.currentBench)
+                                x: .value("Time", item.day),
+                                y: .value("EV", item.weight)
                                )
                                .foregroundStyle(
                                 .linearGradient(
@@ -71,8 +63,8 @@ struct ProgressView: View {
                            
                            ForEach(startingData, id: \.self) { item in
                                LineMark(
-                                x: .value("Time", item.currentDay),
-                                y: .value("EV", item.currentBench)
+                                x: .value("Time", item.day),
+                                y: .value("EV", item.weight)
                                )
                                .foregroundStyle(.blue)
                                .symbol(.circle)
@@ -111,43 +103,74 @@ struct ProgressView: View {
                            }
                        }
                        
-                       .frame(height: 300)
                        
-                       Text("Теоретический максимум")
-                        HStack {
-                            VStack {
-                                HStack {
-                                    Image("BoydEpley")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 50)
-                                    VStack {
-                                        Text("Бойд Эпли")
-                                        Text("\(formulaEpley)")
-                                    }
-                                }
-                                HStack {
+                       .frame(height: 300)
+                       .padding(.bottom)
+                       
+                       HStack {
+                           Text("Максимальный жим на старте: ")
+                           Text("**\(UserDefaults.standard.double(forKey: "StartBench"),specifier: "%.2f")**")
+                               .foregroundColor(.blue)
+                           Text("кг")
+                       }
+                       HStack {
+                           Text("Максимальный сейчас (в теории): ")
+                           Text("**\(UserDefaults.standard.double(forKey: "StartBench"),specifier: "%.2f")**")
+                               .foregroundColor(.blue)
+                           Text("кг")
+                       }
+                           .padding(.bottom)
+                       Spacer()
+                       Text("Текущий Теоретический Максимум (ТТМ)")
+                       HStack {
+                           
+                           Image("BoydEpley")
+                               .resizable()
+                               .scaledToFit()
+                               .frame(width: 75)
+                               .padding(.leading, 20)
+                           Spacer()
+                           
+                           VStack {
+                               
+                               if vm.history.isEmpty {
+                                   
+                                   Text("**Бойду Эпли** и **Мэтту Бржыцки** нужны данные твоей первой тренировки для расчета текущего теоретического максимума.")
+                                       .font(.system(size:15))
+                               } else {
+                                   
+                                   Text("Формула **Эпли**")
+                                   Text("\(formulaEpley, specifier: "%.2f")")
+                                   
+                                   
+                                   Text("Формула **Бржыцки**")
+                                   Text("\(formulaBrzycki, specifier: "%.2f")")
+                                   
+                                   Text("**Среднее**")
+                                   Text("\(formulaAverage, specifier: "%.2f")")
+                               }
+                           }
+                                
+                              Spacer()
                                     Image("MattBrzycki")
                                      .resizable()
                                        .scaledToFit()
-                                       .frame(width: 50)
-                                 VStack {
-                                  Text("Мэтт Бржыцки")
-                                       Text("\(formulaBrzycki)")
-                                 }
-                             }
-                            }
-                            VStack {
-                                Text("Среднее")
-                                Text("\(formulaAverage)")
-                            }
-                            .onAppear {
-                                self.countAverage()
-                            }
+                                     .frame(width: 75)
+                                     .padding(.trailing, 20)
+                               
+                             
+                            
+                       
                         }
+                       VStack {
+                       
+                       }
+                       .onAppear {
+                          countAverage()
+                       }
                       Spacer()
 
-                        }  .padding([.leading, .trailing], 10)
+                        }  //.padding([.leading, .trailing], 10)
                    }
                  
                
@@ -156,6 +179,7 @@ struct ProgressView: View {
 }
 
 struct ProgressView_Previews: PreviewProvider {
+    
     static var previews: some View {
         ProgressView()
             .environmentObject(ContentViewViewModel())

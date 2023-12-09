@@ -10,12 +10,12 @@ import SwiftUI
 struct IntroView: View {
     
     @EnvironmentObject var vm : ContentViewViewModel
-    
-    @State private var startingBench = 0
-    @State private var startingReps = 0
-    
+
     @State private var startingBenchString = ""
     @State private var startingRepsString = ""
+    @State private var calculatedBench = 0.0
+    
+    
     
     var body: some View {
               
@@ -50,7 +50,7 @@ struct IntroView: View {
                     TextField("0", text: $startingRepsString)
                         .multilineTextAlignment(.trailing)
                         .textFieldStyle(.roundedBorder)
-                    Text("кг")
+                    Text("раз")
                         .multilineTextAlignment(.trailing)
                 }
                 .frame(width: 100, alignment: .center)
@@ -59,9 +59,26 @@ struct IntroView: View {
                 
                 LargeButton(title: "Начать", disabled: Int(startingRepsString) ?? 0 > 0 && Int(startingBenchString) ?? 0 > 0 ? false :  true, backgroundColor: .black) {
                     vm.introduction.introCompleted = true
-                    vm.progress.currentDay = 1
-                    vm.introduction.realBench = Int(startingRepsString)! > 1 ? false: true
-                    vm.progress.currentBench = Int(startingBenchString)!
+                    
+                    if Int(startingRepsString)! == 1 {
+                       calculatedBench = Double(startingBenchString)!
+                    } else {
+                        
+                        let brzykiFormula = Int(Double(startingBenchString)!)*36/(37-Int(Double(startingRepsString)!))
+                        let epleyFormula = Int(Double(startingBenchString)!*(1+Double(startingRepsString)!/30))
+                        calculatedBench = Double((brzykiFormula+epleyFormula)/2)
+                        
+                    }
+                    
+                    let realStart = Int(startingRepsString)! > 1 ? false: true
+                    
+                    UserDefaults.standard.set(calculatedBench, forKey: "StartBench")
+                    UserDefaults.standard.set(realStart, forKey: "RealStart")
+                    UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "StartDate")
+
+                    // read
+               //     let date = Date(timeIntervalSince1970: UserDefaults.standard.double(forKey: key)
+        
                 }
                 
                 Spacer()

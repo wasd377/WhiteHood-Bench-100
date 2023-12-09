@@ -17,12 +17,14 @@ struct MainView: View {
     @State private var hintCourseShowing = false
     
 
-    var workout = Workout(id: 1, week: 1, isDone: false, weight: 65, reps: 3)
+    var startDay = Date(timeIntervalSince1970: UserDefaults.standard.double(forKey: "StartDate"))
     
   
     
     var body: some View {
         
+        var currentDay = Calendar.current.dateComponents([.day], from: startDay, to: Date())
+        var date = currentDay.day!+1
         
         VStack(alignment: .leading) {
             //            VStack {
@@ -45,17 +47,27 @@ struct MainView: View {
             //            .foregroundColor(.white)
             
             Group {
-                HStack {
-                    Text("Неделя \(vm.progress.currentDay)")
+                HStack(alignment: .center) {
+                    Spacer()
+                    Text("Блок 1")
                         .font(.system(size: 36, weight: .bold))
-                    Image(systemName: "info.circle.fill")
-                        .onTapGesture {
-                            hintCourseShowing = true
-                        }
+                    
+                    Text("Неделя 1")
+                        .font(.system(size: 24, weight: .bold))
+                    Text("")
+                    //                    Image(systemName: "info.circle.fill")
+                    //                        .onTapGesture {
+                    //                            hintCourseShowing = true
+                    //                        }
                     // .font(.system(size: 24))
-                        .foregroundColor(.blue)
+                    //                        .foregroundColor(.blue)
+                    
+                    Text("День \(date)")
+                        .font(.system(size: 16, weight: .bold))
+                Spacer()
+                    
                 }
-                Text("Тренировочный курс рассчитан на 4 блока по 4 недели в каждом. На каждой неделе будет 2 тренировки с отдыхом 2-3 дня между ними.")
+             //   .multilineTextAlignment(.leading)
                 HStack {
                     Text("Тренировка №1")
                     RoundedRectangle(cornerRadius: 15)
@@ -71,11 +83,14 @@ struct MainView: View {
             }
             .padding([.leading, .trailing], 20)
             
-            
-            NavigationLink(destination: WorkoutView(workout: workout), tag: "Workout", selection: $trainingActivated) { EmptyView() }
-            
-            LargeButton(title: "Потренироваться", backgroundColor: .black) {
-                trainingActivated = "Workout"
+            HStack{
+                Spacer()
+                NavigationLink(destination: WorkoutView(workout: Workout(id: vm.history.count+1, day: currentDay.day!+1, isDone: false, weight: 0, reps: 0)), tag: "Workout", selection: $trainingActivated) { EmptyView() }
+                
+                LargeButton(title: "Потренироваться", backgroundColor: .black) {
+                    trainingActivated = "Workout"
+                }
+                Spacer()
             }
             
             
@@ -84,6 +99,16 @@ struct MainView: View {
             
             
             Spacer()
+            
+            
+            Text("""
+Тренировочный курс рассчитан на 2 блока по 4 недели в каждом.
+
+На каждой неделе будет 2 тренировки с отдыхом 2-3 дня между ними.
+
+На каждой тренировке у вас будет 3 подхода жима лежа.
+""")
+            .padding([.leading, .trailing], 20)
             
         }
     

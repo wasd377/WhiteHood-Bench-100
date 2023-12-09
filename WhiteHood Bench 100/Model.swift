@@ -8,9 +8,17 @@
 import Foundation
 
 struct Progress: Codable, Hashable {
-    var currentBench : Int
-    var currentDay : Int
- 
+    var day : Int
+    var weight : Double
+
+}
+
+struct Workout: Codable, Hashable {
+    var id: Int
+    var day: Int
+    var isDone: Bool
+    var weight: Double
+    var reps: Int
 }
 
 struct Introduction: Codable {
@@ -19,13 +27,6 @@ struct Introduction: Codable {
 
 }
 
-struct Workout: Codable {
-    var id: Int
-    var week: Int
-    var isDone: Bool
-    var weight: Int
-    var reps : Int
-}
 
 
 
