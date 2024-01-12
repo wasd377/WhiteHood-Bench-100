@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct MenuView: View {
+    
+    @EnvironmentObject var vmWorkout : WorkoutViewViewModel
+    @EnvironmentObject var vm : ContentViewViewModel
+    
+    
     var body: some View {
-        NavigationView{
+   
             TabView {
                 MainView()
                     .tabItem {
@@ -24,7 +29,7 @@ struct MenuView: View {
                         Label("История", systemImage: "list.dash")
                     }
             }
-        }
+        
     }
 }
 
@@ -32,5 +37,6 @@ struct MenuView_Previews: PreviewProvider {
     static var previews: some View {
         MenuView()
             .environmentObject(ContentViewViewModel())
+            .environmentObject(WorkoutViewViewModel())
     }
 }

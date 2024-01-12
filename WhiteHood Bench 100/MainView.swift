@@ -11,63 +11,38 @@ struct MainView: View {
     
     @EnvironmentObject var vm : ContentViewViewModel
 
-    
-    @State private var trainingActivated : String? = nil
-    
     @State private var hintCourseShowing = false
-    
 
     var startDay = Date(timeIntervalSince1970: UserDefaults.standard.double(forKey: "StartDate"))
     
-  
-    
+    let today = Date()
+   @State var addingDays = 0
+
     var body: some View {
-        
-        var currentDay = Calendar.current.dateComponents([.day], from: startDay, to: Date())
-        var date = currentDay.day!+1
+     
+        let modifiedDate = Calendar.current.date(byAdding: .day, value: addingDays, to: today)!
+        var currentDay = Calendar.current.dateComponents([.day], from: startDay, to: modifiedDate)
+        var weekNumber = ceil(Double(currentDay.day!/7))
         
         VStack(alignment: .leading) {
-            //            VStack {
-            //                Text("")
-            //                Text("")
-            //                HStack {
-            //
-            //                    Text(vm.progress.realBench == true ? "Стартовый максимум в жиме" : "Теоретический максимум в жиме")
-            //                    Text("\(vm.progress.currentBench)")
-            //                        .font(.system(size: 20, weight: .black))
-            //                    Text("кг")
-            //                }
-            //                .frame(alignment: .trailing)
-            //
-            //
-            //            }
-            //            .frame(maxWidth: .infinity)
-            //            .frame(height: 100)
-            //            .background(Color.black)
-            //            .foregroundColor(.white)
-            
-            Group {
+    
                 HStack(alignment: .center) {
                     Spacer()
-                    Text("Блок 1")
-                        .font(.system(size: 36, weight: .bold))
-                    
-                    Text("Неделя 1")
-                        .font(.system(size: 24, weight: .bold))
-                    Text("")
-                    //                    Image(systemName: "info.circle.fill")
-                    //                        .onTapGesture {
-                    //                            hintCourseShowing = true
-                    //                        }
-                    // .font(.system(size: 24))
-                    //                        .foregroundColor(.blue)
-                    
-                    Text("День \(date)")
+                    Text("День \(currentDay.day!+1)")
                         .font(.system(size: 16, weight: .bold))
-                Spacer()
-                    
+                    Spacer()
+                    Text("Неделя \(weekNumber+1, specifier: "%.0f")")
+                        .font(.system(size: 32, weight: .bold))
+                    Spacer()
+                    Group
+                    { currentDay.day! < 29 ? Text("Блок 1") : Text("Блок 2")
+                        
+                    }
+                        .font(.system(size: 16, weight: .bold))
+                    Spacer()
                 }
-             //   .multilineTextAlignment(.leading)
+                
+            if vm.trainingActivated == false {
                 HStack {
                     Text("Тренировка №1")
                     RoundedRectangle(cornerRadius: 15)
@@ -80,19 +55,28 @@ struct MainView: View {
                         .foregroundColor(Color.red)
                 }
                 .padding(.bottom, 10)
-            }
-            .padding([.leading, .trailing], 20)
-            
-            HStack{
-                Spacer()
-                NavigationLink(destination: WorkoutView(workout: Workout(id: vm.history.count+1, day: currentDay.day!+1, isDone: false, weight: 0, reps: 0)), tag: "Workout", selection: $trainingActivated) { EmptyView() }
-                
-                LargeButton(title: "Потренироваться", backgroundColor: .black) {
-                    trainingActivated = "Workout"
+                .padding([.leading, .trailing], 20)
+                HStack{
+                    Spacer()
+                    LargeButton(title: "Потренироваться", backgroundColor: .black) {
+                        vm.trainingActivated = true
+                    }
+                    Spacer()
                 }
-                Spacer()
+                HStack{
+                    Spacer()
+                    LargeButton(title: "Прибавить день", backgroundColor: .black) {
+                        
+                       
+                        addingDays += 1
+                    }
+                    Spacer()
+                }
             }
-            
+                else {
+                    WorkoutView(workout:Workout(id: vm.history.count+1, day: currentDay.day!+1, isDone: false, weight: 0, reps: 0))
+                }
+              //
             
             
             
@@ -121,5 +105,6 @@ struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
             .environmentObject(ContentViewViewModel())
+            .environmentObject(WorkoutViewViewModel())
     }
 }

@@ -24,9 +24,7 @@ struct Workout: Codable, Hashable {
 struct Introduction: Codable {
     var introCompleted: Bool
     var realBench: Bool
-
 }
-
 
 
 

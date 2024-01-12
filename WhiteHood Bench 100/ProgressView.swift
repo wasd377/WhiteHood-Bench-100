@@ -22,9 +22,19 @@ struct ProgressView: View {
     
     @State var formulaBrzycki = 0.0
     @State var formulaEpley = 0.0
- 
     
-  func countAverage() {
+    let testhistory = [
+        Workout(id: 1, day: 1, isDone: false, weight: 35, reps: 3),
+        Workout(id: 2, day: 3, isDone: false, weight: 40, reps: 3),
+        Workout(id: 3, day: 8, isDone: false, weight: 60, reps: 3),]
+//        Workout(id: 4, day: 13, isDone: false, weight: 80, reps: 3),
+//        Workout(id: 5, day: 27, isDone: false, weight: 90, reps: 3)]
+ 
+    @State var  limitColors : [Color] = [.red, .yellow]
+    @State var colorCount : Double = 5.0
+    @State var newvar = [1,2,3]
+    
+    func countAverage() {
         if vm.history.isEmpty {
             return
         } else {
@@ -32,6 +42,25 @@ struct ProgressView: View {
             formulaBrzycki = Double(vm.history.last!.weight)*36/(37-Double(vm.history.last!.reps))
             formulaEpley = Double(vm.history.last!.weight) * (1 + Double(vm.history.last!.reps)/30)
         }
+    }
+    
+    func calculateColors() {
+    
+      
+      for w in testhistory {
+          if w.weight > colorCount {
+              colorCount = w.weight
+          } else {
+              colorCount = 1337
+          }
+      }
+
+      if colorCount > 66.0 {
+          limitColors = [.red, .green]
+      } else {
+          limitColors = [.red, .yellow]
+      }
+
 
     }
            
@@ -41,20 +70,25 @@ struct ProgressView: View {
                 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130
                ]
                
+               let goal = [100]
+               
                var formulaAverage = Double((formulaBrzycki+formulaEpley)/2)
+               
                   
                    VStack {
+                       
                        Chart {
-                           ForEach(vm.history, id: \.self) { item in
+                           ForEach(testhistory, id: \.self) { item in
                                LineMark(
                                 x: .value("Time", item.day),
                                 y: .value("EV", item.weight)
                                )
                                .foregroundStyle(
-                                .linearGradient(
-                                    colors: [.red, .green],
+                            .linearGradient(
+                                colors: limitColors,
                                     startPoint: .bottom,
-                                    endPoint: .top)
+                                    endPoint: .top
+                                )
                                )
                                .symbol(.circle)
                                .symbolSize(100)
@@ -63,7 +97,7 @@ struct ProgressView: View {
                            
                            ForEach(startingData, id: \.self) { item in
                                LineMark(
-                                x: .value("Time", item.day),
+                                x: .value("Time", 0),
                                 y: .value("EV", item.weight)
                                )
                                .foregroundStyle(.blue)
@@ -73,7 +107,22 @@ struct ProgressView: View {
                            }
                            .foregroundStyle(by: .value("Type", "AV")) // Here
                            
+                           ForEach(goal, id: \.self) { item in
+                               LineMark(
+                                x: .value("Time", 56),
+                                y: .value("EV", 100)
+                               )
+                               .foregroundStyle(.yellow)
+                               .symbol {
+                                               Image(systemName: "star.fill")
+                                                   .foregroundColor(.yellow)
+                                                   .font(.system(size: 17))   // default
+                                           }
+                               .symbolSize(100)
+                           }
+                           
                        }
+                       .padding([.trailing, .leading], 20)
                        .chartLegend(.hidden) // optional
                      //  .chartXScale(domain: 0...8*7)
                        .chartXAxis {
@@ -106,17 +155,25 @@ struct ProgressView: View {
                        
                        .frame(height: 300)
                        .padding(.bottom)
+                       .onAppear {
+                           calculateColors()
+                       }
                        
                        HStack {
-                           Text("Максимальный жим на старте: ")
+                           Text("Жим на старте: ")
                            Text("**\(UserDefaults.standard.double(forKey: "StartBench"),specifier: "%.2f")**")
                                .foregroundColor(.blue)
                            Text("кг")
                        }
                        HStack {
-                           Text("Максимальный сейчас (в теории): ")
-                           Text("**\(UserDefaults.standard.double(forKey: "StartBench"),specifier: "%.2f")**")
-                               .foregroundColor(.blue)
+                           Text("Жим сейчас (в теории): ")
+                           if vm.history.isEmpty {
+                               Text("**?**")
+                                   .foregroundColor(.red)
+                           } else {
+                                   Text("**\(formulaAverage, specifier: "%.2f")**")
+                                       .foregroundColor(formulaAverage < UserDefaults.standard.double(forKey: "StartBench") ? .red : .green)
+                               }
                            Text("кг")
                        }
                            .padding(.bottom)
@@ -162,16 +219,16 @@ struct ProgressView: View {
                             
                        
                         }
-                       VStack {
-                       
-                       }
-                       .onAppear {
-                          countAverage()
-                       }
+                      
+                       .padding(.bottom)
                       Spacer()
 
-                        }  //.padding([.leading, .trailing], 10)
+                        }
+                   .onAppear {
+                      countAverage()
+                   }//.padding([.leading, .trailing], 10)
                    }
+    
                  
                
            

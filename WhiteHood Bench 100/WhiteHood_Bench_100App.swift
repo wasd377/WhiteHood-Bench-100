@@ -13,6 +13,7 @@ struct WhiteHood_Bench_100App: App {
         WindowGroup {
             ContentView()
                 .environmentObject(ContentViewViewModel())
+                .environmentObject(WorkoutViewViewModel())
         }
     }
 }

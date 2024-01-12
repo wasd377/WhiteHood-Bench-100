@@ -10,13 +10,15 @@ import SwiftUI
 struct ContentView: View {
     
     @EnvironmentObject var vm: ContentViewViewModel
+    @EnvironmentObject var vmWorkout: WorkoutViewViewModel
     
     var body: some View {
         
         NavigationView {
             VStack {
                 if vm.introduction.introCompleted == true {
-                    MenuView()
+             MenuView()
+                  
                 } else {
                     IntroView()
                     
@@ -32,6 +34,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(ContentViewViewModel())
+            .environmentObject(WorkoutViewViewModel())
         
     }
 }

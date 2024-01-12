@@ -57,7 +57,7 @@ struct IntroView: View {
                     .keyboardType(.numberPad)
                     .padding(.bottom)
                 
-                LargeButton(title: "Начать", disabled: Int(startingRepsString) ?? 0 > 0 && Int(startingBenchString) ?? 0 > 0 ? false :  true, backgroundColor: .black) {
+                LargeButton(title: "Начать", disabled: startingRepsString.isEmpty || startingBenchString.isEmpty ? true :  false, backgroundColor: .black) {
                     vm.introduction.introCompleted = true
                     
                     if Int(startingRepsString)! == 1 {
