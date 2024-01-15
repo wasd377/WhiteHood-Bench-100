@@ -12,6 +12,7 @@ class ContentViewViewModel: ObservableObject {
     @Published var introduction: Introduction
     @Published var history: [Workout]
     @Published var historyKOSTYL: [Int]
+  
     @Published var trainingActivated = false
     
     init() {
@@ -27,6 +28,8 @@ class ContentViewViewModel: ObservableObject {
             historyKOSTYL.append(Int(ceil(Double(workout.day)/7)))
         }
     }
+    
+ 
     
     func Reset() {
         introduction = Introduction(introCompleted: false, realBench: true)

@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
+    
+    @StateObject private var dataController = DataController()
     
     @EnvironmentObject var vm: ContentViewViewModel
     @EnvironmentObject var vmWorkout: WorkoutViewViewModel
@@ -31,10 +34,13 @@ struct ContentView: View {
 
 
 struct ContentView_Previews: PreviewProvider {
+    
     static var previews: some View {
         ContentView()
             .environmentObject(ContentViewViewModel())
             .environmentObject(WorkoutViewViewModel())
+          //  .environment(\.managedObjectContext, dataController.container.viewContext)
+          
         
     }
 }

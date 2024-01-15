@@ -7,11 +7,22 @@
 
 import SwiftUI
 import Charts
+import CoreData
 
 
 struct ProgressView: View {
     
     @EnvironmentObject var vm: ContentViewViewModel
+    
+    @Environment(\.managedObjectContext) var moc
+    
+    static var getHistoryFetchRequest: NSFetchRequest<CDWorkout> {
+            let request: NSFetchRequest<CDWorkout> = CDWorkout.fetchRequest()
+            request.sortDescriptors = []
+            return request
+       }
+    
+    @FetchRequest(fetchRequest: getHistoryFetchRequest) var CDhistory: FetchedResults<CDWorkout>
     
     let xMarkValues = stride(from: 0, to: 57, by: 7).map{ $0 }
     
@@ -35,12 +46,12 @@ struct ProgressView: View {
     @State var newvar = [1,2,3]
     
     func countAverage() {
-        if vm.history.isEmpty {
+        if CDhistory.isEmpty {
             return
         } else {
             
-            formulaBrzycki = Double(vm.history.last!.weight)*36/(37-Double(vm.history.last!.reps))
-            formulaEpley = Double(vm.history.last!.weight) * (1 + Double(vm.history.last!.reps)/30)
+            formulaBrzycki = Double(CDhistory.last!.weight)*36/(37-Double(CDhistory.last!.reps))
+            formulaEpley = Double(CDhistory.last!.weight) * (1 + Double(CDhistory.last!.reps)/30)
         }
     }
     
@@ -72,13 +83,13 @@ struct ProgressView: View {
                
                let goal = [100]
                
-               var formulaAverage = Double((formulaBrzycki+formulaEpley)/2)
+               let formulaAverage = Double((formulaBrzycki+formulaEpley)/2)
                
                   
                    VStack {
                        
                        Chart {
-                           ForEach(testhistory, id: \.self) { item in
+                           ForEach(CDhistory, id: \.self) { item in
                                LineMark(
                                 x: .value("Time", item.day),
                                 y: .value("EV", item.weight)
@@ -124,7 +135,6 @@ struct ProgressView: View {
                        }
                        .padding([.trailing, .leading], 20)
                        .chartLegend(.hidden) // optional
-                     //  .chartXScale(domain: 0...8*7)
                        .chartXAxis {
                            AxisMarks(preset: .aligned, values: xMarkValues) {
                                AxisGridLine()
@@ -167,7 +177,7 @@ struct ProgressView: View {
                        }
                        HStack {
                            Text("Жим сейчас (в теории): ")
-                           if vm.history.isEmpty {
+                           if CDhistory.isEmpty {
                                Text("**?**")
                                    .foregroundColor(.red)
                            } else {
@@ -190,7 +200,7 @@ struct ProgressView: View {
                            
                            VStack {
                                
-                               if vm.history.isEmpty {
+                               if CDhistory.isEmpty {
                                    
                                    Text("**Бойду Эпли** и **Мэтту Бржыцки** нужны данные твоей первой тренировки для расчета текущего теоретического максимума.")
                                        .font(.system(size:15))
@@ -222,11 +232,12 @@ struct ProgressView: View {
                       
                        .padding(.bottom)
                       Spacer()
+                    
 
                         }
                    .onAppear {
                       countAverage()
-                   }//.padding([.leading, .trailing], 10)
+                   }
                    }
     
                  

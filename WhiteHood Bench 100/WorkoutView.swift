@@ -7,9 +7,20 @@
 
 import SwiftUI
 import Foundation
+import CoreData
 
 struct WorkoutView: View {
     
+    @Environment(\.managedObjectContext) var moc
+ 
+    static var getHistoryFetchRequest: NSFetchRequest<CDWorkout> {
+            let request: NSFetchRequest<CDWorkout> = CDWorkout.fetchRequest()
+            request.sortDescriptors = []
+            return request
+       }
+    
+    @FetchRequest(fetchRequest: getHistoryFetchRequest) var CDhistory: FetchedResults<CDWorkout>
+
     @EnvironmentObject var vmWorkout : WorkoutViewViewModel
     @EnvironmentObject var vm : ContentViewViewModel
     
@@ -17,10 +28,9 @@ struct WorkoutView: View {
     @State var enterReps = ""
     
     var workout : Workout
-    
+     
     var body: some View {
           
-    
             VStack {
                 Text("Тренировка №\(workout.id)")
                     .padding(.bottom, 20)
@@ -62,6 +72,19 @@ struct WorkoutView: View {
                         vm.history.append(Workout(id: vm.history.count+1, day: workout.day, isDone: true, weight: Double(enterWeight)!, reps: Int(enterReps)!))
                         vm.trainingActivated = false
                     }
+                
+                }
+                LargeButton(title: "Сохранить Core Data", disabled: Int(enterReps) ?? 0 > 0 && Double(enterWeight) ?? 0 > 0 ? false :  true, backgroundColor: .black) {
+                    let savingworkout = CDWorkout(context: moc)
+                    savingworkout.id = Int16(CDhistory.count+1)
+                    savingworkout.day = Int16(workout.day)
+                    savingworkout.isDone = true
+                    savingworkout.weight = Double(enterWeight)!
+                    savingworkout.reps = Int16(enterReps)!
+                    
+                    try? moc.save()
+                    
+                    vm.trainingActivated = false
                 }
             
             }

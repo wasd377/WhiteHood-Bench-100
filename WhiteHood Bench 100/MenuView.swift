@@ -24,7 +24,7 @@ struct MenuView: View {
                     .tabItem {
                         Label("Прогресс", systemImage: "chart.xyaxis.line")
                     }
-                HistoryView()
+                CDHistoryView()
                     .tabItem {
                         Label("История", systemImage: "list.dash")
                     }

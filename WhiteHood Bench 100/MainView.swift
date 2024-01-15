@@ -21,8 +21,8 @@ struct MainView: View {
     var body: some View {
      
         let modifiedDate = Calendar.current.date(byAdding: .day, value: addingDays, to: today)!
-        var currentDay = Calendar.current.dateComponents([.day], from: startDay, to: modifiedDate)
-        var weekNumber = ceil(Double(currentDay.day!/7))
+        let currentDay = Calendar.current.dateComponents([.day], from: startDay, to: modifiedDate)
+        let weekNumber = ceil(Double(currentDay.day!/7))
         
         VStack(alignment: .leading) {
     
@@ -72,6 +72,9 @@ struct MainView: View {
                     }
                     Spacer()
                 }
+                
+                
+                
             }
                 else {
                     WorkoutView(workout:Workout(id: vm.history.count+1, day: currentDay.day!+1, isDone: false, weight: 0, reps: 0))
@@ -92,7 +95,7 @@ struct MainView: View {
 
 На каждой тренировке у вас будет 3 подхода жима лежа.
 """)
-            .padding([.leading, .trailing], 20)
+            .padding([.leading, .trailing, .bottom], 20)
             
         }
     

@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 class WorkoutViewViewModel: ObservableObject {
     
     @Published var workout: Workout
