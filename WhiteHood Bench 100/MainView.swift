@@ -66,15 +66,22 @@ struct MainView: View {
                 HStack{
                     Spacer()
                     LargeButton(title: "Прибавить день", backgroundColor: .black) {
-                        
-                       
                         addingDays += 1
                     }
                     Spacer()
                 }
-                
-                
-                
+                HStack{
+                    Spacer()
+                  //  Text(UserDefaults.standard.object(forKey: "StartBench") == nil ? "true" : "false")
+                    Text("\(vm.introduction.introCompleted)" as String)
+                        Button("Сбросить всё") {
+                            vm.introduction.introCompleted = false
+                            //UserDefaults.standard.removeObject(forKey: "StartBench")
+
+                        }
+                    }
+                                   
+                                   Spacer()
             }
                 else {
                     WorkoutView(workout:Workout(id: vm.history.count+1, day: currentDay.day!+1, isDone: false, weight: 0, reps: 0))
@@ -96,7 +103,7 @@ struct MainView: View {
 На каждой тренировке у вас будет 3 подхода жима лежа.
 """)
             .padding([.leading, .trailing, .bottom], 20)
-            
+            Spacer()
         }
     
 }

@@ -23,17 +23,17 @@ struct LargeButtonStyle: ButtonStyle {
             // This is the key part, we are using both an overlay as well as cornerRadius
             .cornerRadius(6)
             .overlay(
-                RoundedRectangle(cornerRadius: 6)
+                RoundedRectangle(cornerRadius: 3)
                     .stroke(currentForegroundColor, lineWidth: 1)
         )
-            .padding([.top, .bottom], 10)
-            .font(Font.system(size: 19, weight: .semibold))
+            .padding([.top, .bottom], 5)
+            .font(Font.system(size: 16, weight: .semibold))
     }
 }
 
 struct LargeButton: View {
     
-    private static let buttonHorizontalMargins: CGFloat = 20
+    private static let buttonHorizontalMargins: CGFloat = 10
     
     var backgroundColor: Color
     var foregroundColor: Color
@@ -69,6 +69,6 @@ struct LargeButton: View {
                 .disabled(self.disabled)
             Spacer(minLength: LargeButton.buttonHorizontalMargins)
         }
-        .frame(maxWidth: 250)
+        .frame(maxWidth: 200)
     }
 }

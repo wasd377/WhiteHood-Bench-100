@@ -31,6 +31,14 @@ struct CDHistoryView: View {
         }
     }
     
+    func deleteHistory() {
+        do {
+            try moc.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "CDWorkout")))
+          try moc.save()
+        } catch {
+        }    }
+
+    
 
     
     
@@ -78,7 +86,9 @@ struct CDHistoryView: View {
                     }
                 }
                 Button("Сбросить всё") {
-                
+                    UserDefaults.resetStandardUserDefaults()
+                    deleteHistory()
+                    vm.introduction.introCompleted = false
                 }
             }
             

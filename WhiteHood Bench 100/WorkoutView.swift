@@ -32,65 +32,75 @@ struct WorkoutView: View {
     var body: some View {
           
             VStack {
-                Text("Тренировка №\(workout.id)")
+                Text("Тренировка №\(CDhistory.count+1)")
                     .padding(.bottom, 20)
-                Text("Рабочий вес")
-                    .font(.title2)
                 HStack {
-                    Text("План")
-                    Text("**\((vmWorkout.planWeight),specifier: "%.2f")** кг")
+                    Text("Рабочий вес")
+                        .font(.title3)
                     Spacer()
-                    Text("Факт")
-                    TextField("", text: $enterWeight)
-                        .keyboardType(.numberPad)
-                        .textFieldStyle(.roundedBorder)
-                        .frame(width: 50)
-                    Text("кг")
+                    VStack(alignment: .trailing){
+                        HStack {
+                            Text("План")
+                            Text("**\((vmWorkout.planWeight),specifier: "%.2f")** кг")
+                           
+                        }
+                        HStack{
+                            Text("Факт")
+                            TextField("", text: $enterWeight)
+                                .keyboardType(.numberPad)
+                                .textFieldStyle(.roundedBorder)
+                                .frame(width: 50)
+                            Text("кг")
+                        }
+                    }
                 }
                 .padding(.bottom, 10)
-                Text("Количество повторений")
-                    .font(.title2)
                 HStack{
-                    Text("План")
-                    Text("**\(vmWorkout.planReps)** раз")
+                    Text("Количество повторений")
+                        .font(.title3)
                     Spacer()
-                    
-                    Text("Факт")
-                    TextField("", text: $enterReps)
-                        .keyboardType(.numberPad)
-                        .textFieldStyle(.roundedBorder)
-                        .frame(width: 50)
-                    Text("раз")
+                    VStack(alignment: .trailing){
+                        HStack{
+                            Text("План")
+                            Text("**\(vmWorkout.planReps)** раз")
+                        
+                        }
+                        HStack{
+                            Text("Факт")
+                            TextField("", text: $enterReps)
+                                .keyboardType(.numberPad)
+                                .textFieldStyle(.roundedBorder)
+                                .frame(width: 50)
+                            Text("раз")
+                        }
+                    }
                 }
                 .padding(.bottom, 30)
                 HStack {
+                    Spacer()
                     Button("Отменить") {
                         vm.trainingActivated = false
                     }
                     Spacer()
                     LargeButton(title: "Сохранить", disabled: Int(enterReps) ?? 0 > 0 && Double(enterWeight) ?? 0 > 0 ? false :  true, backgroundColor: .black) {
-                        vm.history.append(Workout(id: vm.history.count+1, day: workout.day, isDone: true, weight: Double(enterWeight)!, reps: Int(enterReps)!))
+                        let savingworkout = CDWorkout(context: moc)
+                        savingworkout.id = Int16(CDhistory.count+1)
+                        savingworkout.day = Int16(workout.day)
+                        savingworkout.isDone = true
+                        savingworkout.weight = Double(enterWeight)!
+                        savingworkout.reps = Int16(enterReps)!
+                        
+                        try? moc.save()
+                        
                         vm.trainingActivated = false
                     }
-                
-                }
-                LargeButton(title: "Сохранить Core Data", disabled: Int(enterReps) ?? 0 > 0 && Double(enterWeight) ?? 0 > 0 ? false :  true, backgroundColor: .black) {
-                    let savingworkout = CDWorkout(context: moc)
-                    savingworkout.id = Int16(CDhistory.count+1)
-                    savingworkout.day = Int16(workout.day)
-                    savingworkout.isDone = true
-                    savingworkout.weight = Double(enterWeight)!
-                    savingworkout.reps = Int16(enterReps)!
-                    
-                    try? moc.save()
-                    
-                    vm.trainingActivated = false
+                    Spacer()
                 }
             
             }
             .padding()
             .onAppear{
-                vmWorkout.calculateWorkout()
+                vmWorkout.calculateWorkout(workoutDay: 25)
             }
         
       

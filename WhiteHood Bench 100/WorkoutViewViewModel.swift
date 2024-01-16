@@ -9,7 +9,6 @@ import Foundation
 
 class WorkoutViewViewModel: ObservableObject {
     
-    @Published var workout: Workout
     @Published var planWeight = 0.0
     @Published var planReps = 0
     
@@ -35,15 +34,15 @@ class WorkoutViewViewModel: ObservableObject {
         8 : 2
     ]
     
-    func calculateWorkout() {
+    func calculateWorkout(workoutDay: Int) {
     
-        planWeight = weeklyWeight[Int(ceil(Double(workout.day)/7))]! * UserDefaults.standard.double(forKey: "StartBench")
-        planReps = weeklyReps[Int(ceil(Double(workout.day)/7))]!
+        planWeight = weeklyWeight[Int(ceil(Double(workoutDay)/7))]! * UserDefaults.standard.double(forKey: "StartBench")
+        planReps = weeklyReps[Int(ceil(Double(workoutDay)/7))]!
 
     }
     
     init() {
-        workout = Workout(id: 1, day: 1, isDone: false, weight: 0, reps: 0)
+     //   workout = Workout(id: 1, day: 1, isDone: false, weight: 0, reps: 0)
     }
     
 }

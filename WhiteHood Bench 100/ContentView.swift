@@ -15,11 +15,14 @@ struct ContentView: View {
     @EnvironmentObject var vm: ContentViewViewModel
     @EnvironmentObject var vmWorkout: WorkoutViewViewModel
     
+    
     var body: some View {
         
         NavigationView {
             VStack {
-                if vm.introduction.introCompleted == true {
+               if vm.introduction.introCompleted == true {
+                
+              //  if UserDefaults.standard.object(forKey: "StartBench") != nil {
              MenuView()
                   
                 } else {
@@ -39,7 +42,6 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
             .environmentObject(ContentViewViewModel())
             .environmentObject(WorkoutViewViewModel())
-          //  .environment(\.managedObjectContext, dataController.container.viewContext)
           
         
     }

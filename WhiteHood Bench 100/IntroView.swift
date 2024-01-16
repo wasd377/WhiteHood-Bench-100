@@ -70,15 +70,18 @@ struct IntroView: View {
                         
                     }
                     
-                    let realStart = Int(startingRepsString)! > 1 ? false: true
-                    
+                    // Используется для расчета максимума в жиме на старте.
+                    let realStart = Int(startingRepsString)! > 1 ? false : true
+
+                    // Сохраняем стартовые данные на устройстве
                     UserDefaults.standard.set(calculatedBench, forKey: "StartBench")
                     UserDefaults.standard.set(realStart, forKey: "RealStart")
                     UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "StartDate")
-
-                    // read
-               //     let date = Date(timeIntervalSince1970: UserDefaults.standard.double(forKey: key)
         
+                    // Обнуляем поля ввода (понадобится при сбросе прогресса и новом старте)
+                    startingRepsString = ""
+                    startingBenchString = ""
+                    
                 }
                 
                 Spacer()
