@@ -33,13 +33,6 @@ struct ProgressView: View {
     
     @State var formulaBrzycki = 0.0
     @State var formulaEpley = 0.0
-    
-    let testhistory = [
-        Workout(id: 1, day: 1, isDone: false, weight: 35, reps: 3),
-        Workout(id: 2, day: 3, isDone: false, weight: 40, reps: 3),
-        Workout(id: 3, day: 8, isDone: false, weight: 60, reps: 3),]
-//        Workout(id: 4, day: 13, isDone: false, weight: 80, reps: 3),
-//        Workout(id: 5, day: 27, isDone: false, weight: 90, reps: 3)]
  
     @State var  limitColors : [Color] = [.red, .yellow]
     @State var colorCount : Double = 5.0
@@ -56,15 +49,6 @@ struct ProgressView: View {
     }
     
     func calculateColors() {
-    
-      
-      for w in testhistory {
-          if w.weight > colorCount {
-              colorCount = w.weight
-          } else {
-              colorCount = 1337
-          }
-      }
 
       if colorCount > 66.0 {
           limitColors = [.red, .green]
@@ -247,6 +231,8 @@ struct ProgressView: View {
 }
 
 struct ProgressView_Previews: PreviewProvider {
+    
+    var startingData = 70.0
     
     static var previews: some View {
         ProgressView()

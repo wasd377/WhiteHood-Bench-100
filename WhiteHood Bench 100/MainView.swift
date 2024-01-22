@@ -6,23 +6,28 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct MainView: View {
     
     @EnvironmentObject var vm : ContentViewViewModel
 
     @State private var hintCourseShowing = false
-
-    var startDay = Date(timeIntervalSince1970: UserDefaults.standard.double(forKey: "StartDate"))
     
-    let today = Date()
-   @State var addingDays = 0
-
+    static var getHistoryFetchRequest: NSFetchRequest<CDWorkout> {
+            let request: NSFetchRequest<CDWorkout> = CDWorkout.fetchRequest()
+            request.sortDescriptors = []
+            return request
+       }
+    
+    @FetchRequest(fetchRequest: getHistoryFetchRequest) var CDhistory: FetchedResults<CDWorkout>
+    
     var body: some View {
      
-        let modifiedDate = Calendar.current.date(byAdding: .day, value: addingDays, to: today)!
-        let currentDay = Calendar.current.dateComponents([.day], from: startDay, to: modifiedDate)
-        let weekNumber = ceil(Double(currentDay.day!/7))
+        let modifiedDate = Calendar.current.date(byAdding: .day, value: vm.addingDays, to: vm.today)!
+        let currentDay = Calendar.current.dateComponents([.day], from: vm.startDay, to: modifiedDate)
+        let weekNumber = ceil(Double(currentDay.day!/7))+1
+        
         
         VStack(alignment: .leading) {
     
@@ -31,7 +36,7 @@ struct MainView: View {
                     Text("День \(currentDay.day!+1)")
                         .font(.system(size: 16, weight: .bold))
                     Spacer()
-                    Text("Неделя \(weekNumber+1, specifier: "%.0f")")
+                    Text("Неделя \(weekNumber, specifier: "%.0f")")
                         .font(.system(size: 32, weight: .bold))
                     Spacer()
                     Group
@@ -44,12 +49,12 @@ struct MainView: View {
                 
             if vm.trainingActivated == false {
                 HStack {
-                    Text("Тренировка №1")
+                    Text("Тренировка №\(Int(weekNumber*2-1))")
                     RoundedRectangle(cornerRadius: 15)
                         .frame(width: 24, height: 24)
-                        .foregroundColor(Color.red)
+                        .foregroundColor(CDhistory[(Int(weekNumber*2-2))].isDone ? Color.green : Color.red)
                     Spacer()
-                    Text("Тренировка №2")
+                    Text("Тренировка №\(Int(weekNumber*2))")
                     RoundedRectangle(cornerRadius: 15)
                         .frame(width: 24, height: 24)
                         .foregroundColor(Color.red)
@@ -66,31 +71,20 @@ struct MainView: View {
                 HStack{
                     Spacer()
                     LargeButton(title: "Прибавить день", backgroundColor: .black) {
-                        addingDays += 1
+                        vm.addingDays += 1
                     }
                     Spacer()
                 }
-                HStack{
-                    Spacer()
-                  //  Text(UserDefaults.standard.object(forKey: "StartBench") == nil ? "true" : "false")
-                    Text("\(vm.introduction.introCompleted)" as String)
-                        Button("Сбросить всё") {
-                            vm.introduction.introCompleted = false
-                            //UserDefaults.standard.removeObject(forKey: "StartBench")
-
-                        }
-                    }
+                HStack {
+                    Text( CDhistory[(Int(weekNumber*2-2))].isDone ? ("Yes it's done") : ("Not Done!"))
+                }
+            
                                    
                                    Spacer()
             }
                 else {
-                    WorkoutView(workout:Workout(id: vm.history.count+1, day: currentDay.day!+1, isDone: false, weight: 0, reps: 0))
+                    WorkoutView()
                 }
-              //
-            
-            
-            
-            
             
             Spacer()
             
@@ -105,6 +99,7 @@ struct MainView: View {
             .padding([.leading, .trailing, .bottom], 20)
             Spacer()
         }
+     
     
 }
         

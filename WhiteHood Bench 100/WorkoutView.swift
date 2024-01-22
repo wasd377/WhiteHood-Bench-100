@@ -27,9 +27,12 @@ struct WorkoutView: View {
     @State var enterWeight = ""
     @State var enterReps = ""
     
-    var workout : Workout
+  
      
     var body: some View {
+        
+        let modifiedDate = Calendar.current.date(byAdding: .day, value: vm.addingDays, to: vm.today)!
+        let currentDay = Calendar.current.dateComponents([.day], from: vm.startDay, to: modifiedDate)
           
             VStack {
                 Text("Тренировка №\(CDhistory.count+1)")
@@ -85,7 +88,7 @@ struct WorkoutView: View {
                     LargeButton(title: "Сохранить", disabled: Int(enterReps) ?? 0 > 0 && Double(enterWeight) ?? 0 > 0 ? false :  true, backgroundColor: .black) {
                         let savingworkout = CDWorkout(context: moc)
                         savingworkout.id = Int16(CDhistory.count+1)
-                        savingworkout.day = Int16(workout.day)
+                        savingworkout.day = Int16(currentDay.day!)
                         savingworkout.isDone = true
                         savingworkout.weight = Double(enterWeight)!
                         savingworkout.reps = Int16(enterReps)!
@@ -109,10 +112,9 @@ struct WorkoutView: View {
 
 struct WorkoutView_Previews: PreviewProvider {
     
-    static var workout = Workout(id: 1, day: 1, isDone: false, weight: 100, reps: 1)
     
     static var previews: some View {
-        WorkoutView(workout: workout)
+        WorkoutView()
             .environmentObject(WorkoutViewViewModel())
             .environmentObject(ContentViewViewModel())
     }

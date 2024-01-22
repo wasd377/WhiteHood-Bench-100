@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8265F1362B5E8860001F86DF /* CDWorkout+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8265F1342B5E8860001F86DF /* CDWorkout+CoreDataClass.swift */; };
+		8265F1372B5E8860001F86DF /* CDWorkout+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8265F1352B5E8860001F86DF /* CDWorkout+CoreDataProperties.swift */; };
 		826D067A2B19F3A200679984 /* WhiteHood_Bench_100App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D06792B19F3A200679984 /* WhiteHood_Bench_100App.swift */; };
 		826D067C2B19F3A200679984 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D067B2B19F3A200679984 /* ContentView.swift */; };
 		826D067E2B19F3A400679984 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 826D067D2B19F3A400679984 /* Assets.xcassets */; };
@@ -47,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8265F1342B5E8860001F86DF /* CDWorkout+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWorkout+CoreDataClass.swift"; sourceTree = "<group>"; };
+		8265F1352B5E8860001F86DF /* CDWorkout+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWorkout+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		826D06762B19F3A200679984 /* WhiteHood Bench 100.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WhiteHood Bench 100.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		826D06792B19F3A200679984 /* WhiteHood_Bench_100App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteHood_Bench_100App.swift; sourceTree = "<group>"; };
 		826D067B2B19F3A200679984 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -101,6 +105,8 @@
 		826D066D2B19F3A200679984 = {
 			isa = PBXGroup;
 			children = (
+				8265F1342B5E8860001F86DF /* CDWorkout+CoreDataClass.swift */,
+				8265F1352B5E8860001F86DF /* CDWorkout+CoreDataProperties.swift */,
 				826D06782B19F3A200679984 /* WhiteHood Bench 100 */,
 				826D06892B19F3A500679984 /* WhiteHood Bench 100Tests */,
 				826D06932B19F3A500679984 /* WhiteHood Bench 100UITests */,
@@ -302,6 +308,7 @@
 				826D06BA2B21DED900679984 /* VisualEffects.swift in Sources */,
 				826D06A42B19F3B400679984 /* Model.swift in Sources */,
 				826D06A62B19F6CD00679984 /* MainView.swift in Sources */,
+				8265F1372B5E8860001F86DF /* CDWorkout+CoreDataProperties.swift in Sources */,
 				826D06BD2B24694000679984 /* WorkoutViewViewModel.swift in Sources */,
 				826D06A82B19F9E600679984 /* IntroView.swift in Sources */,
 				8280DA8D2B52C0AC0070D534 /* DataController.swift in Sources */,
@@ -312,6 +319,7 @@
 				826D067A2B19F3A200679984 /* WhiteHood_Bench_100App.swift in Sources */,
 				826D06B62B207AA600679984 /* ProgressView.swift in Sources */,
 				8280DA912B53F8660070D534 /* TestCD.swift in Sources */,
+				8265F1362B5E8860001F86DF /* CDWorkout+CoreDataClass.swift in Sources */,
 				8280DA8F2B52C3040070D534 /* CDHistoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

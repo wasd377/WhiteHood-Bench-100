@@ -18,9 +18,12 @@ struct CDHistoryView: View {
     
     static var getHistoryFetchRequest: NSFetchRequest<CDWorkout> {
             let request: NSFetchRequest<CDWorkout> = CDWorkout.fetchRequest()
-            request.sortDescriptors = []
+            request.sortDescriptors = [
+                NSSortDescriptor(keyPath: \CDWorkout.id, ascending: true)
+            ]
             return request
        }
+    
     
     @FetchRequest(fetchRequest: getHistoryFetchRequest) var CDhistory: FetchedResults<CDWorkout>
     
@@ -43,8 +46,6 @@ struct CDHistoryView: View {
     
     
     var body: some View {
-        
-    
         
         VStack(alignment: .leading) {
             

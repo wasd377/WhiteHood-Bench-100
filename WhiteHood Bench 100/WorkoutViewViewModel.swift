@@ -42,7 +42,7 @@ class WorkoutViewViewModel: ObservableObject {
     }
     
     init() {
-     //   workout = Workout(id: 1, day: 1, isDone: false, weight: 0, reps: 0)
+    
     }
     
 }

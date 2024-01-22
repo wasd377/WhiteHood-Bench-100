@@ -13,13 +13,13 @@ struct Progress: Codable, Hashable {
 
 }
 
-struct Workout: Codable, Hashable {
-    var id: Int
-    var day: Int
-    var isDone: Bool
-    var weight: Double
-    var reps: Int
-}
+//struct Workout: Codable, Hashable {
+//    var id: Int
+//    var day: Int
+//    var isDone: Bool
+//    var weight: Double
+//    var reps: Int
+//}
 
 struct Introduction: Codable {
     var introCompleted: Bool
