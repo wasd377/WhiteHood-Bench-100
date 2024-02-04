@@ -13,6 +13,7 @@ import CoreData
 struct ProgressView: View {
     
     @EnvironmentObject var vm: ContentViewViewModel
+    @EnvironmentObject var vmProgress: ProgressViewViewModel
     
     @Environment(\.managedObjectContext) var moc
     
@@ -38,7 +39,7 @@ struct ProgressView: View {
     @State var colorCount : Double = 5.0
     @State var newvar = [1,2,3]
     
-    func countAverage() {
+    func countAverage(CDhistory: FetchedResults<CDWorkout>) {
         if CDhistory.isEmpty {
             return
         } else {
@@ -74,19 +75,22 @@ struct ProgressView: View {
                        
                        Chart {
                            ForEach(CDhistory, id: \.self) { item in
-                               LineMark(
-                                x: .value("Time", item.day),
-                                y: .value("EV", item.weight)
-                               )
-                               .foregroundStyle(
-                            .linearGradient(
-                                colors: limitColors,
-                                    startPoint: .bottom,
-                                    endPoint: .top
-                                )
-                               )
-                               .symbol(.circle)
-                               .symbolSize(100)
+                               
+                               if item.isDone == true {
+                                   LineMark(
+                                    x: .value("Time", item.day),
+                                    y: .value("EV", item.weight)
+                                   )
+                                   .foregroundStyle(
+                                    .linearGradient(
+                                        colors: limitColors,
+                                        startPoint: .bottom,
+                                        endPoint: .top
+                                    )
+                                   )
+                                   .symbol(.circle)
+                                   .symbolSize(100)
+                               }
                            }
                            .foregroundStyle(by: .value("Type", "EV")) // Here
                            
@@ -154,7 +158,7 @@ struct ProgressView: View {
                        }
                        
                        HStack {
-                           Text("Жим на старте: ")
+                           UserDefaults.standard.bool(forKey: "realStart") == true ? Text("Жим на старте: ") : Text("Жим на старте (в теории): ")
                            Text("**\(UserDefaults.standard.double(forKey: "StartBench"),specifier: "%.2f")**")
                                .foregroundColor(.blue)
                            Text("кг")
@@ -220,7 +224,7 @@ struct ProgressView: View {
 
                         }
                    .onAppear {
-                      countAverage()
+                      countAverage(CDhistory: CDhistory)
                    }
                    }
     

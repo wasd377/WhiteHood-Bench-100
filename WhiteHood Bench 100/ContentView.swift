@@ -37,10 +37,13 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     
+    static var dataController = DataController()
+    
     static var previews: some View {
         ContentView()
             .environmentObject(ContentViewViewModel())
             .environmentObject(WorkoutViewViewModel())
+            .environment(\.managedObjectContext, dataController.container.viewContext)
           
         
     }

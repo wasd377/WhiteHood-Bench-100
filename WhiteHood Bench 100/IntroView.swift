@@ -10,12 +10,11 @@ import SwiftUI
 struct IntroView: View {
     
     @EnvironmentObject var vm : ContentViewViewModel
+    @Environment(\.managedObjectContext) var moc
 
     @State private var startingBenchString = ""
     @State private var startingRepsString = ""
     @State private var calculatedBench = 0.0
-    
-    
     
     var body: some View {
               
@@ -71,7 +70,7 @@ struct IntroView: View {
                     }
                     
                     // Используется для расчета максимума в жиме на старте.
-                    let realStart = Int(startingRepsString)! > 1 ? false : true
+                    let realStart = Int(startingRepsString)! > 1 ? true : false
 
                     // Сохраняем стартовые данные на устройстве
                     UserDefaults.standard.set(calculatedBench, forKey: "StartBench")
@@ -81,6 +80,20 @@ struct IntroView: View {
                     // Обнуляем поля ввода (понадобится при сбросе прогресса и новом старте)
                     startingRepsString = ""
                     startingBenchString = ""
+                    
+                    // Генерируем записи по будущим тренировкам. Без них приложение крашится на главном экране при попытке проверить тренировку, записи о которой нет в CD.
+                    
+//                    for i in 1...16 {
+//                        
+//                        let savingworkout = CDWorkout(context: moc)
+//                        savingworkout.id = Int16(i)
+//                        savingworkout.day = Int16(i)
+//                        savingworkout.isDone = false
+//                        savingworkout.weight = 0.0
+//                        savingworkout.reps = 0
+//                        
+//                        try? moc.save()
+//                    }
                     
                 }
                 
@@ -102,8 +115,12 @@ struct IntroView: View {
 
 
 struct IntroView_Previews: PreviewProvider {
+    
+    static var dataController = DataController()
+    
     static var previews: some View {
         IntroView()
             .environmentObject(ContentViewViewModel())
+            .environment(\.managedObjectContext, dataController.container.viewContext)
     }
 }

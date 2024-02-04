@@ -34,10 +34,18 @@ class WorkoutViewViewModel: ObservableObject {
         8 : 2
     ]
     
-    func calculateWorkout(workoutDay: Int) {
+    func calculateWorkout(workoutWeek: Int) {
     
-        planWeight = weeklyWeight[Int(ceil(Double(workoutDay)/7))]! * UserDefaults.standard.double(forKey: "StartBench")
-        planReps = weeklyReps[Int(ceil(Double(workoutDay)/7))]!
+        var actualBench : Double?
+        
+        if UserDefaults.standard.object(forKey: "NewBench") != nil {
+            actualBench = UserDefaults.standard.double(forKey: "NewBench")
+        } else {
+           actualBench = UserDefaults.standard.double(forKey: "StartBench")
+        }
+        
+        planWeight = weeklyWeight[workoutWeek]! * actualBench! //UserDefaults.standard.double(forKey: "StartBench")
+        planReps = weeklyReps[workoutWeek]!
 
     }
     

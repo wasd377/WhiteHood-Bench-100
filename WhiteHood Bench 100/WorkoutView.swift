@@ -27,49 +27,61 @@ struct WorkoutView: View {
     @State var enterWeight = ""
     @State var enterReps = ""
     
+    var trainingId : Int
+    var dayNumber : Int
+    var weekNumber : Int
   
      
     var body: some View {
-        
-        let modifiedDate = Calendar.current.date(byAdding: .day, value: vm.addingDays, to: vm.today)!
-        let currentDay = Calendar.current.dateComponents([.day], from: vm.startDay, to: modifiedDate)
           
             VStack {
-                Text("Тренировка №\(CDhistory.count+1)")
+                Text("Тренировка №\(trainingId)")
+                    .font(.title3)
                     .padding(.bottom, 20)
                 HStack {
                     Text("Рабочий вес")
-                        .font(.title3)
                     Spacer()
-                    VStack(alignment: .trailing){
-                        HStack {
-                            Text("План")
-                            Text("**\((vmWorkout.planWeight),specifier: "%.2f")** кг")
-                           
-                        }
-                        HStack{
+                    VStack(alignment: .center){
+                        
+                        Text("План")
+                        Text("**\((vmWorkout.planWeight),specifier: "%.2f")** кг")
+                            .frame(height: 30)
+                    
+                    }
+                    
+                    Spacer()
+                    VStack{
+                   
                             Text("Факт")
+                        HStack{
                             TextField("", text: $enterWeight)
                                 .keyboardType(.numberPad)
                                 .textFieldStyle(.roundedBorder)
                                 .frame(width: 50)
                             Text("кг")
                         }
+                           
+                        
                     }
+                   
                 }
-                .padding(.bottom, 10)
+                .padding(.bottom, 30)
                 HStack{
-                    Text("Количество повторений")
-                        .font(.title3)
+                    Text("Количество \nповторений")
+                       
                     Spacer()
-                    VStack(alignment: .trailing){
-                        HStack{
-                            Text("План")
-                            Text("**\(vmWorkout.planReps)** раз")
+                    VStack(alignment: .center){
+                        
+                        Text("План")
+                            Text("**\(vmWorkout.planReps)**  раз")
+                            .frame(height: 30)
                         
                         }
-                        HStack{
+                    Spacer()
+                    VStack{
+                   
                             Text("Факт")
+                        HStack{
                             TextField("", text: $enterReps)
                                 .keyboardType(.numberPad)
                                 .textFieldStyle(.roundedBorder)
@@ -87,23 +99,38 @@ struct WorkoutView: View {
                     Spacer()
                     LargeButton(title: "Сохранить", disabled: Int(enterReps) ?? 0 > 0 && Double(enterWeight) ?? 0 > 0 ? false :  true, backgroundColor: .black) {
                         let savingworkout = CDWorkout(context: moc)
-                        savingworkout.id = Int16(CDhistory.count+1)
-                        savingworkout.day = Int16(currentDay.day!)
+                        savingworkout.id = Int16(trainingId)
+                        savingworkout.day = Int16(dayNumber)
                         savingworkout.isDone = true
                         savingworkout.weight = Double(enterWeight)!
                         savingworkout.reps = Int16(enterReps)!
                         
-                        try? moc.save()
+                        
+                        DispatchQueue.main.async {
+                            try? moc.save()
+                        }
+                        
+                        if trainingId == 4 && Int(enterReps) ?? 0 > Int(vmWorkout.planReps) {
+                            UserDefaults.standard.set(Double(enterWeight), forKey: "NewBench")
+                        }
                         
                         vm.trainingActivated = false
                     }
                     Spacer()
                 }
+                
+                if trainingId == 4 {
+                    Text("Если плановый вес сегодня идет легко, то вместо планового количества повторений можно сделать подход на максимум. Тогда приложение пересчитает нагрузку на второй блок программы.")
+                        .multilineTextAlignment(.center)
+                        .font(.system(size: 14))
+                        .foregroundColor(.secondary)
+                        .padding([.trailing, .leading], 20)
+                }
             
             }
             .padding()
             .onAppear{
-                vmWorkout.calculateWorkout(workoutDay: 25)
+                vmWorkout.calculateWorkout(workoutWeek: Int(weekNumber))
             }
         
       
@@ -112,10 +139,16 @@ struct WorkoutView: View {
 
 struct WorkoutView_Previews: PreviewProvider {
     
+    static var dataController = DataController()
+    static var dayNumber = 1
+    static var trainingId = 4
+    static var weekNumber = 1
     
     static var previews: some View {
-        WorkoutView()
+        WorkoutView(trainingId: trainingId, dayNumber: dayNumber, weekNumber: weekNumber)
             .environmentObject(WorkoutViewViewModel())
             .environmentObject(ContentViewViewModel())
+            .environment(\.managedObjectContext, dataController.container.viewContext)
+
     }
 }

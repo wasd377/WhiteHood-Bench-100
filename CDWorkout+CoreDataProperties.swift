@@ -2,7 +2,7 @@
 //  CDWorkout+CoreDataProperties.swift
 //  WhiteHood Bench 100
 //
-//  Created by Natalia D on 22.01.2024.
+//  Created by Natalia D on 24.01.2024.
 //
 //
 

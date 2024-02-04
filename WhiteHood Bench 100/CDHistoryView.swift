@@ -14,8 +14,6 @@ struct CDHistoryView: View {
     
     @Environment(\.managedObjectContext) var moc
     
-    @State var CDhistoryKOSTYL: [Int] = []
-    
     static var getHistoryFetchRequest: NSFetchRequest<CDWorkout> {
             let request: NSFetchRequest<CDWorkout> = CDWorkout.fetchRequest()
             request.sortDescriptors = [
@@ -24,15 +22,15 @@ struct CDHistoryView: View {
             return request
        }
     
-    
-    @FetchRequest(fetchRequest: getHistoryFetchRequest) var CDhistory: FetchedResults<CDWorkout>
-    
     func CDhistoryKOSTYLCalculation() {
-        CDhistoryKOSTYL = []
         for workout in CDhistory {
-            CDhistoryKOSTYL.append(Int(ceil(Double(workout.day)/7)))
+            if workout.isDone == true {
+                vm.historyKOSTYL.append(Int(ceil(Double(workout.day)/7)))
+            }
         }
     }
+    
+    @FetchRequest(fetchRequest: getHistoryFetchRequest) var CDhistory: FetchedResults<CDWorkout>
     
     func deleteHistory() {
         do {
@@ -49,48 +47,59 @@ struct CDHistoryView: View {
         
         VStack(alignment: .leading) {
             
-            if CDhistoryKOSTYL.isEmpty {
+            if CDhistory.isEmpty {
                 Text("Здесь будет отображаться история всех прошедших тренировок с информацией о весе и количестве повторений.")
                     .padding(20)
             } else {
                 
-                
-                ForEach(1...8, id: \.self) { weekNumber in
-                    if CDhistoryKOSTYL.contains(weekNumber) {
-                        Text("Неделя \(weekNumber)")
-                            .font(.system(size: 20, weight: .bold))
-                    } else {
+                List{
+                    ForEach(1...8, id: \.self) { weekNumber in
+                        if vm.historyKOSTYL.contains(weekNumber) {
+                            Text("Неделя \(weekNumber)")
+                                .font(.system(size: 20, weight: .bold))
+                        } else {
+                        }
+                        
+                        ForEach(CDhistory, id: \.self) { item in
+                          
+                                if Int(ceil(Double(item.day)/7)) == weekNumber {
+                                    HStack {
+                                        VStack(alignment: .leading) {
+                                            Text("Тренировка №\(item.id)")
+                                            Text("День \(item.day)")
+                                        }
+                                        Spacer()
+                                        VStack(alignment: .leading) {
+                                            HStack{
+                                                Text("Вес:")
+                                                Text("\(item.weight, specifier: "%.2f")")
+                                                Text("кг")
+                                            }
+                                            HStack {
+                                                Text("Повторения:")
+                                                Text("\(item.reps)")
+                                                //Text("раз")
+                                            }
+                                        }
+                                        
+                                    }
+                                    .padding(.bottom, 10)
+                                    
+                                }
+                            }
+                        
                     }
                     
-                    ForEach(CDhistory, id: \.self) { item in
-                        if Int(ceil(Double(item.day)/7)) == weekNumber {
-                            HStack {
-                                Spacer()
-                                Text("Тренировка №\(item.id)")
-                                Spacer()
-                                VStack(alignment: .leading) {
-                                    HStack{
-                                        Text("Вес:")
-                                        Text("\(item.weight, specifier: "%.2f")")
-                                    }
-                                    HStack {
-                                        Text("Повторения:")
-                                        Text("\(item.reps)")
-                                        Text("раз")
-                                    }
-                                }
-                                
-                            }
-                            .padding(.bottom, 10)
-                            
-                        }
-                    }
                 }
-                Button("Сбросить всё") {
-                    UserDefaults.resetStandardUserDefaults()
-                    deleteHistory()
-                    vm.introduction.introCompleted = false
-                }
+                .listStyle(.plain)
+                
+            
+            }
+            
+            Button("Начать сначала") {
+                UserDefaults.resetStandardUserDefaults()
+                deleteHistory()
+                vm.introduction.introCompleted = false
             }
             
             
@@ -105,9 +114,12 @@ struct CDHistoryView: View {
 
 struct CDHistoryView_Previews: PreviewProvider {
     
+    static var dataController = DataController()
+    
     static var previews: some View {
         CDHistoryView()
             .environmentObject(ContentViewViewModel())
+            .environment(\.managedObjectContext, dataController.container.viewContext)
           
     }
 }
