@@ -100,6 +100,7 @@ struct CDHistoryView: View {
                 UserDefaults.resetStandardUserDefaults()
                 deleteHistory()
                 vm.introduction.introCompleted = false
+                vm.addingDays = 0
             }
             
             

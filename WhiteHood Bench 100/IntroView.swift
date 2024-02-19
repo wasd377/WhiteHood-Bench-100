@@ -14,6 +14,7 @@ struct IntroView: View {
 
     @State private var startingBenchString = ""
     @State private var startingRepsString = ""
+    @State private var benchGoal = ""
     @State private var calculatedBench = 0.0
     
     var body: some View {
@@ -21,7 +22,7 @@ struct IntroView: View {
             VStack {
 
                     Spacer()
-                        Text("Какой максимальный вес в жиме лежа сейчас?")
+                Text("Какой максимальный вес в жиме лежа сейчас?")
                             .imageScale(.large)
                             .foregroundColor(.black)
                             .multilineTextAlignment(.center)
@@ -56,7 +57,25 @@ struct IntroView: View {
                     .keyboardType(.numberPad)
                     .padding(.bottom)
                 
-                LargeButton(title: "Начать", disabled: startingRepsString.isEmpty || startingBenchString.isEmpty ? true :  false, backgroundColor: .black) {
+                Text("Какая цель в жиме лежа?")
+                            .imageScale(.large)
+                            .foregroundColor(.black)
+                            .multilineTextAlignment(.center)
+                
+                HStack {
+                    TextField("0", text: $benchGoal)
+                        .multilineTextAlignment(.trailing)
+                        .textFieldStyle(.roundedBorder)
+                    Text("кг")
+                        .multilineTextAlignment(.trailing)
+                   
+                }
+                .frame(width: 100, alignment: .center)
+                    .keyboardType(.numberPad)
+                    .padding(.bottom)
+                
+                
+                LargeButton(title: "Начать", disabled: startingRepsString.isEmpty || startingBenchString.isEmpty || benchGoal.isEmpty ? true :  false, backgroundColor: .black) {
                     vm.introduction.introCompleted = true
                     
                     if Int(startingRepsString)! == 1 {
@@ -70,12 +89,13 @@ struct IntroView: View {
                     }
                     
                     // Используется для расчета максимума в жиме на старте.
-                    let realStart = Int(startingRepsString)! > 1 ? true : false
+                    let realStart = Int(startingRepsString)! == 1 ? true : false
 
                     // Сохраняем стартовые данные на устройстве
                     UserDefaults.standard.set(calculatedBench, forKey: "StartBench")
                     UserDefaults.standard.set(realStart, forKey: "RealStart")
                     UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "StartDate")
+                    UserDefaults.standard.set(Double(benchGoal), forKey: "BenchGoal")
         
                     // Обнуляем поля ввода (понадобится при сбросе прогресса и новом старте)
                     startingRepsString = ""

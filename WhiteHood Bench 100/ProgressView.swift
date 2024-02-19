@@ -30,12 +30,7 @@ struct ProgressView: View {
     let startingData = [
         Progress(day: 1, weight: UserDefaults.standard.double(forKey: "StartBench"))]
     
-    @State private var formulaAverage = 0
-    
-    @State var formulaBrzycki = 0.0
-    @State var formulaEpley = 0.0
- 
-    @State var  limitColors : [Color] = [.red, .yellow]
+    @State var limitColors : [Color] = [.red, .yellow]
     @State var colorCount : Double = 5.0
     @State var newvar = [1,2,3]
     
@@ -44,8 +39,10 @@ struct ProgressView: View {
             return
         } else {
             
-            formulaBrzycki = Double(CDhistory.last!.weight)*36/(37-Double(CDhistory.last!.reps))
-            formulaEpley = Double(CDhistory.last!.weight) * (1 + Double(CDhistory.last!.reps)/30)
+            vmProgress.formulaBrzycki = Double(CDhistory.last!.weight)*36/(37-Double(CDhistory.last!.reps))
+            vmProgress.formulaEpley = Double(CDhistory.last!.weight) * (1 + Double(CDhistory.last!.reps)/30)
+            
+            vmProgress.formulaAverage = (vmProgress.formulaEpley + vmProgress.formulaBrzycki) / 2
         }
     }
     
@@ -66,9 +63,9 @@ struct ProgressView: View {
                 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130
                ]
                
-               let goal = [100]
+               let benchGoal = [UserDefaults.standard.double(forKey: "BenchGoal")]
                
-               let formulaAverage = Double((formulaBrzycki+formulaEpley)/2)
+          //     let formulaAverage = Double((formulaBrzycki+formulaEpley)/2)
                
                   
                    VStack {
@@ -106,7 +103,7 @@ struct ProgressView: View {
                            }
                            .foregroundStyle(by: .value("Type", "AV")) // Here
                            
-                           ForEach(goal, id: \.self) { item in
+                           ForEach(benchGoal, id: \.self) { item in
                                LineMark(
                                 x: .value("Time", 56),
                                 y: .value("EV", 100)
@@ -169,8 +166,8 @@ struct ProgressView: View {
                                Text("**?**")
                                    .foregroundColor(.red)
                            } else {
-                                   Text("**\(formulaAverage, specifier: "%.2f")**")
-                                       .foregroundColor(formulaAverage < UserDefaults.standard.double(forKey: "StartBench") ? .red : .green)
+                               Text("**\(vmProgress.formulaAverage, specifier: "%.2f")**")
+                                   .foregroundColor(vmProgress.formulaAverage < UserDefaults.standard.double(forKey: "StartBench") ? .red : .green)
                                }
                            Text("кг")
                        }
@@ -195,14 +192,14 @@ struct ProgressView: View {
                                } else {
                                    
                                    Text("Формула **Эпли**")
-                                   Text("\(formulaEpley, specifier: "%.2f")")
+                                   Text("\(vmProgress.formulaEpley, specifier: "%.2f")")
                                    
                                    
                                    Text("Формула **Бржыцки**")
-                                   Text("\(formulaBrzycki, specifier: "%.2f")")
+                                   Text("\(vmProgress.formulaBrzycki, specifier: "%.2f")")
                                    
                                    Text("**Среднее**")
-                                   Text("\(formulaAverage, specifier: "%.2f")")
+                                   Text("\(vmProgress.formulaAverage, specifier: "%.2f")")
                                }
                            }
                                 
@@ -236,6 +233,7 @@ struct ProgressView: View {
 
 struct ProgressView_Previews: PreviewProvider {
     
+    var benchGoal = 1337.0
     var startingData = 70.0
     
     static var previews: some View {

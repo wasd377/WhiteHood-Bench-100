@@ -12,7 +12,7 @@ class ContentViewViewModel: ObservableObject {
     @Published var introduction: Introduction
     @Published var historyKOSTYL: [Int]
     
-    @Published var startDay = Date(timeIntervalSince1970: UserDefaults.standard.double(forKey: "StartDate"))
+    @Published var startDay = UserDefaults.standard.object(forKey: "StartDate") as? Date  ?? Date() // Date(timeIntervalSince1970: UserDefaults.standard.double(forKey: "StartDate"))
     @Published var today = Date()
     //Эта переменная нужна только для дебага
     @Published var addingDays = 0
@@ -22,6 +22,7 @@ class ContentViewViewModel: ObservableObject {
         progress = []
         introduction = Introduction(introCompleted: false, realBench: true)
         historyKOSTYL = []
+        
     }
 
     

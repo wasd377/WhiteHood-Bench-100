@@ -11,8 +11,12 @@ import CoreData
 struct MainView: View {
     
     @EnvironmentObject var vm : ContentViewViewModel
+    @EnvironmentObject var vmProgress: ProgressViewViewModel
+    
+    @Environment(\.managedObjectContext) var moc
 
     @State private var hintCourseShowing = false
+    @State private var showingAlert = false
     
     static var getHistoryFetchRequest: NSFetchRequest<CDWorkout> {
             let request: NSFetchRequest<CDWorkout> = CDWorkout.fetchRequest()
@@ -24,31 +28,46 @@ struct MainView: View {
     
     @FetchRequest(fetchRequest: getHistoryFetchRequest) var CDhistory: FetchedResults<CDWorkout>
     
-    func fillHistoryGaps(weekN: Int) {
-        if CDhistory.count < (weekN-1)*2 {
+    func countAverage(CDhistory: FetchedResults<CDWorkout>) {
+        if CDhistory.isEmpty {
+            return
+        } else {
             
+            vmProgress.formulaBrzycki = Double(CDhistory.last!.weight)*36/(37-Double(CDhistory.last!.reps))
+            vmProgress.formulaEpley = Double(CDhistory.last!.weight) * (1 + Double(CDhistory.last!.reps)/30)
+            
+            vmProgress.formulaAverage = (vmProgress.formulaEpley + vmProgress.formulaBrzycki) / 2
         }
     }
     
+
+    func deleteHistory() {
+        do {
+            try moc.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "CDWorkout")))
+          try moc.save()
+        } catch {
+        }    }
+
+    
     var body: some View {
      
-        let modifiedDate = Calendar.current.date(byAdding: .day, value: vm.addingDays, to: vm.today)!
+        let modifiedDate = vm.addingDays > 0 ? Calendar.current.date(byAdding: .day, value: vm.addingDays, to: vm.today)! : Date()
         let currentDay = Calendar.current.dateComponents([.day], from: vm.startDay, to: modifiedDate)
         
         // Переводим Date Components в Int
         let dayNumber = currentDay.day! + 1
          
         let weekN = Int(ceil(Double(dayNumber)/7))
-        let leftTrainingId = Int(weekN*2-1)
-        let rightTrainingId = Int(weekN*2)
-        let numberOfWorkouts = CDhistory.count
+        let rightTrainingId = CDhistory.count > 0 ? (CDhistory.count + 2 > weekN * 2 ? weekN * 2 : CDhistory.count + 2) : 2 //leftTrainingId + 1 //Int(weekN*2)
+        let leftTrainingId = rightTrainingId - 1 //CDhistory.count > 0 ? (Int(weekN*2-1) > CDhistory.last!.id ? ) : 1
+        
         
         // Просчитываем номер текущей тренировки
         let trainingId =
-        numberOfWorkouts > 0 ? (CDhistory.last!.id > leftTrainingId ? rightTrainingId : leftTrainingId) : 1
+        CDhistory.count > 0 ? (CDhistory.last!.id > leftTrainingId ? rightTrainingId : leftTrainingId) : 1
         
         // Просчитываем активность кнопки Тренировки, по правилам программы должно быть не более 2х занятий в неделю, примерно равномерно удаленных друг от друга.
-        let trainingDisabled = numberOfWorkouts > 0 || numberOfWorkouts == weekN ?
+        let trainingDisabled = CDhistory.count > 0 || CDhistory.count == weekN ?
         (Int16(dayNumber) < (CDhistory.last!.day + 3) ? true : false)
         : false
         
@@ -60,6 +79,11 @@ struct MainView: View {
                     Text("День \(dayNumber)")
                         .font(.system(size: 16, weight: .bold))
                     Spacer()
+                    
+                  // Для дебагинга вывожу здесь количество записей в истории
+//                    Text("\(CDhistory.count)")
+//                    Text("\(vmProgress.formulaAverage)")
+                    
                     Text("Неделя \(weekN)")
                         .font(.system(size: 32, weight: .bold))
                     Spacer()
@@ -77,12 +101,12 @@ struct MainView: View {
                     
                     RoundedRectangle(cornerRadius: 15)
                         .frame(width: 24, height: 24)
-                        .foregroundColor(numberOfWorkouts >= leftTrainingId ? (CDhistory[leftTrainingId-1].isDone == true ? Color.green : Color.red) : Color.red)
+                        .foregroundColor(CDhistory.count >= leftTrainingId ? (CDhistory[leftTrainingId-1].isDone == true ? Color.green : Color.red) : Color.red)
                     Spacer()
                     Text("Тренировка №\(rightTrainingId)")
                     RoundedRectangle(cornerRadius: 15)
                         .frame(width: 24, height: 24)
-                        .foregroundColor(numberOfWorkouts >= rightTrainingId ? (CDhistory[leftTrainingId-1].isDone == true ? Color.green : Color.red) : Color.red)
+                        .foregroundColor(CDhistory.count >= rightTrainingId ? (CDhistory[leftTrainingId-1].isDone == true ? Color.green : Color.red) : Color.red)
                 }
                 .padding(.bottom, 10)
                 .padding([.leading, .trailing], 20)
@@ -93,6 +117,11 @@ struct MainView: View {
                     }
                     Spacer()
                 }
+                
+                // Для дебагинга завершения программы
+//                Button("Show Alert") {
+//                          showingAlert = true
+//                      }
                 
                 // Поясняем, почему кнопка заблокирована
                 if trainingDisabled {
@@ -106,13 +135,13 @@ struct MainView: View {
                 else {}
                 
                 // Только для тестирования
-                HStack{
-                    Spacer()
-                    LargeButton(title: "Прибавить день", backgroundColor: .black) {
-                        vm.addingDays += 1
-                    }
-                    Spacer()
-                }
+//                HStack{
+//                    Spacer()
+//                    LargeButton(title: "Прибавить день", backgroundColor: .black) {
+//                        vm.addingDays += 1
+//                    }
+//                    Spacer()
+//                }
             
                                    
                                    Spacer()
@@ -134,14 +163,25 @@ struct MainView: View {
             .padding([.leading, .trailing, .bottom], 20)
             Spacer()
         }
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("Программа закончена!"), message: Text("8 недель прошли, а это значит, что пора подводить итоги! В начале программы ваш жим лежа составлял \(UserDefaults.standard.double(forKey: "StartBench"),specifier: "%.2f") кг, а сейчас составляет уже \((vmProgress.formulaAverage),specifier: "%.2f"). Поздравляем!") , dismissButton: .default(Text("Начать сначала")) {
+                UserDefaults.resetStandardUserDefaults()
+                deleteHistory()
+                vm.introduction.introCompleted = false
+                vm.addingDays = 0
+            })
+               }
         .onAppear {
-            fillHistoryGaps(weekN: weekN)
-            
+            countAverage(CDhistory: CDhistory)
+            if dayNumber > 3 {
+                showingAlert = true
+            }
         }
         
      
     
 }
+    
         
     
 }
@@ -154,6 +194,7 @@ struct MainView_Previews: PreviewProvider {
         MainView()
             .environmentObject(ContentViewViewModel())
             .environmentObject(WorkoutViewViewModel())
+            .environmentObject(ProgressViewViewModel())
             .environment(\.managedObjectContext, dataController.container.viewContext)
     }
 }
