@@ -44,6 +44,9 @@ struct ContentView_Previews: PreviewProvider {
             .environmentObject(ContentViewViewModel())
             .environmentObject(WorkoutViewViewModel())
             .environmentObject(ProgressViewViewModel())
+            .environmentObject(IntroViewViewModel())
+        
+        
             .environment(\.managedObjectContext, dataController.container.viewContext)
           
         

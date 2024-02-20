@@ -101,6 +101,7 @@ struct CDHistoryView: View {
                 deleteHistory()
                 vm.introduction.introCompleted = false
                 vm.addingDays = 0
+                vm.trainingDisabled = false
             }
             
             

@@ -66,10 +66,10 @@ struct MainView: View {
         let trainingId =
         CDhistory.count > 0 ? (CDhistory.last!.id > leftTrainingId ? rightTrainingId : leftTrainingId) : 1
         
-        // Просчитываем активность кнопки Тренировки, по правилам программы должно быть не более 2х занятий в неделю, примерно равномерно удаленных друг от друга.
-        let trainingDisabled = CDhistory.count > 0 || CDhistory.count == weekN ?
-        (Int16(dayNumber) < (CDhistory.last!.day + 3) ? true : false)
-        : false
+//        // Просчитываем активность кнопки Тренировки, по правилам программы должно быть не более 2х занятий в неделю, примерно равномерно удаленных друг от друга.
+//        let trainingDisabled = CDhistory.count > 0 || CDhistory.count == weekN ?
+//        (Int16(dayNumber) < (CDhistory.last!.day + 3) ? true : false)
+//        : false
         
         
         VStack(alignment: .leading) {
@@ -79,17 +79,11 @@ struct MainView: View {
                     Text("День \(dayNumber)")
                         .font(.system(size: 16, weight: .bold))
                     Spacer()
-                    
-                  // Для дебагинга вывожу здесь количество записей в истории
-//                    Text("\(CDhistory.count)")
-//                    Text("\(vmProgress.formulaAverage)")
-                    
                     Text("Неделя \(weekN)")
                         .font(.system(size: 32, weight: .bold))
                     Spacer()
                     Group
                     { currentDay.day! < 29 ? Text("Блок 1") : Text("Блок 2")
-                        
                     }
                         .font(.system(size: 16, weight: .bold))
                     Spacer()
@@ -112,28 +106,22 @@ struct MainView: View {
                 .padding([.leading, .trailing], 20)
                 HStack{
                     Spacer()
-                    LargeButton(title: "Потренироваться", disabled: trainingDisabled, backgroundColor: .black) {
+                    LargeButton(title: "Потренироваться", disabled: vm.trainingDisabled, backgroundColor: .black) {
                         vm.trainingActivated = true
                     }
                     Spacer()
                 }
-                
-                // Для дебагинга завершения программы
-//                Button("Show Alert") {
-//                          showingAlert = true
-//                      }
+              
                 
                 // Поясняем, почему кнопка заблокирована
-                if trainingDisabled {
+                if vm.trainingDisabled {
                     Text("Между тренировками должно пройти не менее 2-х дней отдыха, чтобы организм восстановился.")
                         .multilineTextAlignment(.center)
                         .font(.system(size: 14))
                         .foregroundColor(.secondary)
                         .padding([.trailing, .leading], 20)
                 }
-                    
-                else {}
-                
+            
                 // Только для тестирования
 //                HStack{
 //                    Spacer()
@@ -146,6 +134,7 @@ struct MainView: View {
                                    
                                    Spacer()
             }
+             
                 else {
                     WorkoutView(trainingId: trainingId, dayNumber: dayNumber, weekNumber: weekN)
                 }

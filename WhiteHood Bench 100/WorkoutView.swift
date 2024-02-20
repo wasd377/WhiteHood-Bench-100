@@ -23,15 +23,12 @@ struct WorkoutView: View {
 
     @EnvironmentObject var vmWorkout : WorkoutViewViewModel
     @EnvironmentObject var vm : ContentViewViewModel
-    
-    @State var enterWeight = ""
-    @State var enterReps = ""
+
     
     var trainingId : Int
     var dayNumber : Int
     var weekNumber : Int
   
-     
     var body: some View {
           
             VStack {
@@ -54,7 +51,7 @@ struct WorkoutView: View {
                    
                             Text("Факт")
                         HStack{
-                            TextField("", text: $enterWeight)
+                            TextField("", text: $vmWorkout.enterWeight)
                                 .keyboardType(.numberPad)
                                 .textFieldStyle(.roundedBorder)
                                 .frame(width: 50)
@@ -82,7 +79,7 @@ struct WorkoutView: View {
                    
                             Text("Факт")
                         HStack{
-                            TextField("", text: $enterReps)
+                            TextField("", text: $vmWorkout.enterReps)
                                 .keyboardType(.numberPad)
                                 .textFieldStyle(.roundedBorder)
                                 .frame(width: 50)
@@ -97,24 +94,28 @@ struct WorkoutView: View {
                         vm.trainingActivated = false
                     }
                     Spacer()
-                    LargeButton(title: "Сохранить", disabled: Int(enterReps) ?? 0 > 0 && Double(enterWeight) ?? 0 > 0 ? false :  true, backgroundColor: .black) {
+                    LargeButton(title: "Сохранить", disabled: Int(vmWorkout.enterReps) ?? 0 > 0 && Double(vmWorkout.enterWeight) ?? 0 > 0 ? false :  true, backgroundColor: .black) {
                         let savingworkout = CDWorkout(context: moc)
                         savingworkout.id = Int16(trainingId)
                         savingworkout.day = Int16(dayNumber)
                         savingworkout.isDone = true
-                        savingworkout.weight = Double(enterWeight)!
-                        savingworkout.reps = Int16(enterReps)!
+                        savingworkout.weight = Double(vmWorkout.enterWeight)!
+                        savingworkout.reps = Int16(vmWorkout.enterReps)!
                         
                         
                         DispatchQueue.main.async {
                             try? moc.save()
+                            vm.restCalculation(CDhistory: CDhistory, weekN: weekNumber, dayNumber: dayNumber)
                         }
                         
-                        if trainingId == 4 && Int(enterReps) ?? 0 > Int(vmWorkout.planReps) {
-                            UserDefaults.standard.set(Double(enterWeight), forKey: "NewBench")
+                        if trainingId == 4 && Int(vmWorkout.enterReps) ?? 0 > Int(vmWorkout.planReps) {
+                            UserDefaults.standard.set(Double(vmWorkout.enterWeight), forKey: "NewBench")
                         }
                         
+                        vmWorkout.enterReps = ""
+                        vmWorkout.enterWeight = ""
                         vm.trainingActivated = false
+                        
                     }
                     Spacer()
                 }

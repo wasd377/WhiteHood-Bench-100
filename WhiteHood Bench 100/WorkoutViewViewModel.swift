@@ -12,6 +12,9 @@ class WorkoutViewViewModel: ObservableObject {
     @Published var planWeight = 0.0
     @Published var planReps = 0
     
+    @Published var enterWeight = ""
+    @Published var enterReps = ""
+    
     var weeklyWeight = [
         1 : 0.82,
         2 : 0.85,
@@ -46,7 +49,6 @@ class WorkoutViewViewModel: ObservableObject {
         
         planWeight = weeklyWeight[workoutWeek]! * actualBench! //UserDefaults.standard.double(forKey: "StartBench")
         planReps = weeklyReps[workoutWeek]!
-
     }
     
     init() {
