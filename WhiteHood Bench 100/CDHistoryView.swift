@@ -32,12 +32,7 @@ struct CDHistoryView: View {
     
     @FetchRequest(fetchRequest: getHistoryFetchRequest) var CDhistory: FetchedResults<CDWorkout>
     
-    func deleteHistory() {
-        do {
-            try moc.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "CDWorkout")))
-          try moc.save()
-        } catch {
-        }    }
+
 
     
 
@@ -97,11 +92,7 @@ struct CDHistoryView: View {
             }
             
             Button("Начать сначала") {
-                UserDefaults.resetStandardUserDefaults()
-                deleteHistory()
                 vm.introduction.introCompleted = false
-                vm.addingDays = 0
-                vm.trainingDisabled = false
             }
             
             

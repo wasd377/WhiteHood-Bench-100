@@ -15,6 +15,8 @@ struct ContentView: View {
     @EnvironmentObject var vm: ContentViewViewModel
     @EnvironmentObject var vmWorkout: WorkoutViewViewModel
     
+
+    
     
     var body: some View {
         

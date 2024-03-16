@@ -6,12 +6,20 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct IntroView: View {
     
     @EnvironmentObject var vm : ContentViewViewModel
     @EnvironmentObject var vmIntro : IntroViewViewModel
     @Environment(\.managedObjectContext) var moc
+    
+    func deleteHistory() {
+        do {
+            try moc.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "CDWorkout")))
+          try moc.save()
+        } catch {
+        }    }
 
     var body: some View {
               
@@ -76,6 +84,12 @@ struct IntroView: View {
                 }
 
                         }
+            .onAppear{
+                UserDefaults.resetStandardUserDefaults()
+                deleteHistory()
+                vm.addingDays = 0
+                vm.trainingDisabled = false
+            }
             }
         }
     

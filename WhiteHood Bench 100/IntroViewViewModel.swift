@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 class IntroViewViewModel: ObservableObject  {
     
@@ -39,7 +40,7 @@ class IntroViewViewModel: ObservableObject  {
         startingRepsString = ""
         startingBenchString = ""
         benchGoal = ""
-        
-        
     }
+    
+    
 }

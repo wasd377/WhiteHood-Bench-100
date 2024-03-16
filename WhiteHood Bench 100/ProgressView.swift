@@ -26,13 +26,15 @@ struct ProgressView: View {
     @FetchRequest(fetchRequest: getHistoryFetchRequest) var CDhistory: FetchedResults<CDWorkout>
     
     let xMarkValues = stride(from: 0, to: 57, by: 7).map{ $0 }
-    
+    @State var yMarkValues = [0]
     let startingData = [
         Progress(day: 1, weight: UserDefaults.standard.double(forKey: "StartBench"))]
+    let benchGoal = [UserDefaults.standard.double(forKey: "BenchGoal")]
     
     @State var limitColors : [Color] = [.red, .yellow]
     @State var colorCount : Double = 5.0
     @State var newvar = [1,2,3]
+    
     
     func countAverage(CDhistory: FetchedResults<CDWorkout>) {
         if CDhistory.isEmpty {
@@ -47,27 +49,21 @@ struct ProgressView: View {
     }
     
     func calculateColors() {
-
       if colorCount > 66.0 {
           limitColors = [.red, .green]
       } else {
           limitColors = [.red, .yellow]
       }
-
-
+    }
+    
+    func calculateTableHeight() {
+        for number in 1...11 {
+            yMarkValues.append(Int(UserDefaults.standard.double(forKey: "BenchGoal"))/10*number)
+        }
     }
            
            var body: some View {
-               
-               let yAxisSize = [
-                0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130
-               ]
-               
-               let benchGoal = [UserDefaults.standard.double(forKey: "BenchGoal")]
-               
-          //     let formulaAverage = Double((formulaBrzycki+formulaEpley)/2)
-               
-                  
+            
                    VStack {
                        
                        Chart {
@@ -106,7 +102,7 @@ struct ProgressView: View {
                            ForEach(benchGoal, id: \.self) { item in
                                LineMark(
                                 x: .value("Time", 56),
-                                y: .value("EV", 100)
+                                y: .value("EV", 150)
                                )
                                .foregroundStyle(.yellow)
                                .symbol {
@@ -136,7 +132,7 @@ struct ProgressView: View {
 
                        }
                        .chartYAxis {
-                           AxisMarks(values: yAxisSize) {
+                           AxisMarks(values: yMarkValues) { //yAxisSize) {
                                AxisGridLine()
                                AxisTick()
                                let value = $0.as(Int.self)!
@@ -152,6 +148,7 @@ struct ProgressView: View {
                        .padding(.bottom)
                        .onAppear {
                            calculateColors()
+                           calculateTableHeight()
                        }
                        
                        HStack {
