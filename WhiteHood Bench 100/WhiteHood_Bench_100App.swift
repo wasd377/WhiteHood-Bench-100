@@ -16,6 +16,7 @@ struct WhiteHood_Bench_100App: App {
         WindowGroup {
             ContentView()
                 .environmentObject(ContentViewViewModel())
+                .environmentObject(IntroViewViewModel())
                 .environmentObject(WorkoutViewViewModel())
                 .environment(\.managedObjectContext, dataController.container.viewContext)
             

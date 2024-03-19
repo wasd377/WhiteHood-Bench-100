@@ -40,6 +40,7 @@ class IntroViewViewModel: ObservableObject  {
         startingRepsString = ""
         startingBenchString = ""
         benchGoal = ""
+        calculatedBench = 0.0
     }
     
     

@@ -29,7 +29,7 @@ struct ProgressView: View {
     @State var yMarkValues = [0]
     let startingData = [
         Progress(day: 1, weight: UserDefaults.standard.double(forKey: "StartBench"))]
-    let benchGoal = [UserDefaults.standard.double(forKey: "BenchGoal")]
+    let benchGoal = [Progress(day: 56, weight: UserDefaults.standard.double(forKey: "BenchGoal"))]
     
     @State var limitColors : [Color] = [.red, .yellow]
     @State var colorCount : Double = 5.0
@@ -57,6 +57,7 @@ struct ProgressView: View {
     }
     
     func calculateTableHeight() {
+        yMarkValues = [0]
         for number in 1...11 {
             yMarkValues.append(Int(UserDefaults.standard.double(forKey: "BenchGoal"))/10*number)
         }
@@ -101,8 +102,8 @@ struct ProgressView: View {
                            
                            ForEach(benchGoal, id: \.self) { item in
                                LineMark(
-                                x: .value("Time", 56),
-                                y: .value("EV", 150)
+                                x: .value("Time", item.day),
+                                y: .value("EV", item.weight)
                                )
                                .foregroundStyle(.yellow)
                                .symbol {
