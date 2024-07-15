@@ -26,7 +26,6 @@ struct IntroView: View {
             VStack {
                 Text("Какой максимальный вес в жиме лежа сейчас?")
                             .imageScale(.large)
-                            .foregroundColor(.black)
                             .multilineTextAlignment(.center)
                 
                 HStack {
@@ -43,9 +42,9 @@ struct IntroView: View {
                          
                 
                     Text("На сколько повторений?")
-                    .foregroundColor(.black)
+                    
                         .imageScale(.large)
-                        .foregroundColor(.accentColor)
+                      
                       .frame(width: 200, alignment: .leading)
                         .multilineTextAlignment(.leading)
                 HStack {
@@ -61,7 +60,6 @@ struct IntroView: View {
                 
                 Text("Какая цель в жиме лежа?")
                             .imageScale(.large)
-                            .foregroundColor(.black)
                             .multilineTextAlignment(.center)
                 
                 HStack {
@@ -77,7 +75,7 @@ struct IntroView: View {
                     .padding(.bottom)
                 
                 
-                LargeButton(title: "Начать", disabled: vmIntro.startingRepsString.isEmpty || vmIntro.startingBenchString.isEmpty || vmIntro.benchGoal.isEmpty ? true :  false, backgroundColor: .black) {
+                LargeButton(title: "Начать", disabled: vmIntro.startingRepsString.isEmpty || vmIntro.startingBenchString.isEmpty || vmIntro.benchGoal.isEmpty ? true :  false) {
                     
                     vm.introduction.introCompleted = true
                     vmIntro.newStart()
