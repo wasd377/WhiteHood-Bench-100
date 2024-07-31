@@ -28,17 +28,17 @@ struct MainView: View {
     
     @FetchRequest(fetchRequest: getHistoryFetchRequest) var CDhistory: FetchedResults<CDWorkout>
     
-    func countAverage(CDhistory: FetchedResults<CDWorkout>) {
-        if CDhistory.isEmpty {
-            return
-        } else {
-            
-            vmProgress.formulaBrzycki = Double(CDhistory.last!.weight)*36/(37-Double(CDhistory.last!.reps))
-            vmProgress.formulaEpley = Double(CDhistory.last!.weight) * (1 + Double(CDhistory.last!.reps)/30)
-            
-            vmProgress.formulaAverage = (vmProgress.formulaEpley + vmProgress.formulaBrzycki) / 2
-        }
-    }
+//    func countAverage(CDhistory: FetchedResults<CDWorkout>) {
+//        if CDhistory.isEmpty {
+//            return
+//        } else {
+//
+//            vmProgress.formulaBrzycki = Double(CDhistory.last!.weight)*36/(37-Double(CDhistory.last!.reps))
+//            vmProgress.formulaEpley = Double(CDhistory.last!.weight) * (1 + Double(CDhistory.last!.reps)/30)
+//
+//            vmProgress.formulaAverage = (vmProgress.formulaEpley + vmProgress.formulaBrzycki) / 2
+//        }
+//    }
     
 
     func deleteHistory() {
@@ -161,7 +161,7 @@ struct MainView: View {
             })
                }
         .onAppear {
-            countAverage(CDhistory: CDhistory)
+         //   countAverage(CDhistory: CDhistory)
             if dayNumber > 3 {
                 showingAlert = true
             }

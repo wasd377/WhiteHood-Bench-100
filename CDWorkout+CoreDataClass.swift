@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-@objc(CDWorkout)
+//@objc(CDWorkout)
 public class CDWorkout: NSManagedObject {
 
 }

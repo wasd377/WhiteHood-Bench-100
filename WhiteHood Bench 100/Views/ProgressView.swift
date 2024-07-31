@@ -44,7 +44,6 @@ struct ProgressView: View {
             vmProgress.formulaBrzycki = Double(CDhistory.last!.weight)*36/(37-Double(CDhistory.last!.reps))
             vmProgress.formulaEpley = Double(CDhistory.last!.weight) * (1 + Double(CDhistory.last!.reps)/30)
             
-            vmProgress.formulaAverage = (vmProgress.formulaEpley + vmProgress.formulaBrzycki) / 2
         }
     }
     
@@ -64,6 +63,8 @@ struct ProgressView: View {
     }
            
            var body: some View {
+               
+               var formulaAverage = (vmProgress.formulaEpley + vmProgress.formulaBrzycki) / 2
             
                    VStack {
                        
@@ -164,8 +165,8 @@ struct ProgressView: View {
                                Text("**?**")
                                    .foregroundColor(.red)
                            } else {
-                               Text("**\(vmProgress.formulaAverage, specifier: "%.2f")**")
-                                   .foregroundColor(vmProgress.formulaAverage < UserDefaults.standard.double(forKey: "StartBench") ? .red : .green)
+                               Text("**\(formulaAverage, specifier: "%.2f")**")
+                                   .foregroundColor(formulaAverage < UserDefaults.standard.double(forKey: "StartBench") ? .red : .green)
                                }
                            Text("кг")
                        }
@@ -234,8 +235,13 @@ struct ProgressView_Previews: PreviewProvider {
     var benchGoal = 1337.0
     var startingData = 70.0
     
+    static var dataController = DataController()
+    
     static var previews: some View {
         ProgressView()
             .environmentObject(ContentViewViewModel())
+            .environmentObject(ProgressViewViewModel())
+        
+        .environment(\.managedObjectContext, dataController.container.viewContext)
     }
 }

@@ -140,7 +140,6 @@ struct WorkoutView: View {
 
 struct WorkoutView_Previews: PreviewProvider {
     
-    static var dataController = DataController()
     static var dayNumber = 1
     static var trainingId = 4
     static var weekNumber = 1
@@ -149,7 +148,6 @@ struct WorkoutView_Previews: PreviewProvider {
         WorkoutView(trainingId: trainingId, dayNumber: dayNumber, weekNumber: weekNumber)
             .environmentObject(WorkoutViewViewModel())
             .environmentObject(ContentViewViewModel())
-            .environment(\.managedObjectContext, dataController.container.viewContext)
 
     }
 }

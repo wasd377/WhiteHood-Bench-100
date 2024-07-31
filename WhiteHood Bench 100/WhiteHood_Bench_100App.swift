@@ -18,6 +18,7 @@ struct WhiteHood_Bench_100App: App {
                 .environmentObject(ContentViewViewModel())
                 .environmentObject(IntroViewViewModel())
                 .environmentObject(WorkoutViewViewModel())
+                .environmentObject(ProgressViewViewModel())
                 .environment(\.managedObjectContext, dataController.container.viewContext)
             
         }

@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		824725092B6F96150041D434 /* ProgressView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824725082B6F96150041D434 /* ProgressView-ViewModel.swift */; };
+		824725092B6F96150041D434 /* ProgressViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824725082B6F96150041D434 /* ProgressViewViewModel.swift */; };
 		825E4F9C2B84A72A0009F499 /* IntroViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825E4F9B2B84A7290009F499 /* IntroViewViewModel.swift */; };
-		825E4F9E2B84A99A0009F499 /* MainViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825E4F9D2B84A99A0009F499 /* MainViewViewModel.swift */; };
-		825E4FA02B84AB510009F499 /* CDHistoryViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825E4F9F2B84AB510009F499 /* CDHistoryViewViewModel.swift */; };
 		8265F1362B5E8860001F86DF /* CDWorkout+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8265F1342B5E8860001F86DF /* CDWorkout+CoreDataClass.swift */; };
 		8265F1372B5E8860001F86DF /* CDWorkout+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8265F1352B5E8860001F86DF /* CDWorkout+CoreDataProperties.swift */; };
 		826D067A2B19F3A200679984 /* WhiteHood_Bench_100App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D06792B19F3A200679984 /* WhiteHood_Bench_100App.swift */; };
@@ -23,7 +21,7 @@
 		826D06A42B19F3B400679984 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D06A32B19F3B400679984 /* Model.swift */; };
 		826D06A62B19F6CD00679984 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D06A52B19F6CD00679984 /* MainView.swift */; };
 		826D06A82B19F9E600679984 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D06A72B19F9E600679984 /* IntroView.swift */; };
-		826D06AA2B19FAD600679984 /* ContentView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D06A92B19FAD600679984 /* ContentView-ViewModel.swift */; };
+		826D06AA2B19FAD600679984 /* ContentViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D06A92B19FAD600679984 /* ContentViewViewModel.swift */; };
 		826D06AC2B20691F00679984 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D06AB2B20691F00679984 /* WorkoutView.swift */; };
 		826D06B22B20779800679984 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D06B12B20779800679984 /* MenuView.swift */; };
 		826D06B62B207AA600679984 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D06B52B207AA600679984 /* ProgressView.swift */; };
@@ -52,10 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		824725082B6F96150041D434 /* ProgressView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProgressView-ViewModel.swift"; sourceTree = "<group>"; };
+		824725082B6F96150041D434 /* ProgressViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewViewModel.swift; sourceTree = "<group>"; };
 		825E4F9B2B84A7290009F499 /* IntroViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewViewModel.swift; sourceTree = "<group>"; };
-		825E4F9D2B84A99A0009F499 /* MainViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewViewModel.swift; sourceTree = "<group>"; };
-		825E4F9F2B84AB510009F499 /* CDHistoryViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDHistoryViewViewModel.swift; sourceTree = "<group>"; };
 		8265F1342B5E8860001F86DF /* CDWorkout+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWorkout+CoreDataClass.swift"; sourceTree = "<group>"; };
 		8265F1352B5E8860001F86DF /* CDWorkout+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWorkout+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		826D06762B19F3A200679984 /* WhiteHood Bench 100.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WhiteHood Bench 100.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,7 +67,7 @@
 		826D06A32B19F3B400679984 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		826D06A52B19F6CD00679984 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		826D06A72B19F9E600679984 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
-		826D06A92B19FAD600679984 /* ContentView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView-ViewModel.swift"; sourceTree = "<group>"; };
+		826D06A92B19FAD600679984 /* ContentViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewViewModel.swift; sourceTree = "<group>"; };
 		826D06AB2B20691F00679984 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		826D06B12B20779800679984 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		826D06B52B207AA600679984 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
@@ -80,6 +76,7 @@
 		8280DA8A2B52C0580070D534 /* CDModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CDModel.xcdatamodel; sourceTree = "<group>"; };
 		8280DA8C2B52C0AC0070D534 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		8280DA8E2B52C3040070D534 /* CDHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDHistoryView.swift; sourceTree = "<group>"; };
+		82D829D22C5A650E00C2C503 /* WhiteHood-Bench-100-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WhiteHood-Bench-100-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,21 +129,14 @@
 		826D06782B19F3A200679984 /* WhiteHood Bench 100 */ = {
 			isa = PBXGroup;
 			children = (
+				82D829D22C5A650E00C2C503 /* WhiteHood-Bench-100-Info.plist */,
 				826D06792B19F3A200679984 /* WhiteHood_Bench_100App.swift */,
 				826D06A32B19F3B400679984 /* Model.swift */,
 				8280DA892B52C0580070D534 /* CDModel.xcdatamodeld */,
-				826D067B2B19F3A200679984 /* ContentView.swift */,
-				826D06A92B19FAD600679984 /* ContentView-ViewModel.swift */,
-				826D06A72B19F9E600679984 /* IntroView.swift */,
+				826D06A92B19FAD600679984 /* ContentViewViewModel.swift */,
 				825E4F9B2B84A7290009F499 /* IntroViewViewModel.swift */,
-				826D06A52B19F6CD00679984 /* MainView.swift */,
-				825E4F9D2B84A99A0009F499 /* MainViewViewModel.swift */,
-				826D06B52B207AA600679984 /* ProgressView.swift */,
-				824725082B6F96150041D434 /* ProgressView-ViewModel.swift */,
-				8280DA8E2B52C3040070D534 /* CDHistoryView.swift */,
-				825E4F9F2B84AB510009F499 /* CDHistoryViewViewModel.swift */,
-				826D06B12B20779800679984 /* MenuView.swift */,
-				826D06AB2B20691F00679984 /* WorkoutView.swift */,
+				82D829D12C5A585A00C2C503 /* Views */,
+				824725082B6F96150041D434 /* ProgressViewViewModel.swift */,
 				826D06BC2B24694000679984 /* WorkoutViewViewModel.swift */,
 				826D067D2B19F3A400679984 /* Assets.xcassets */,
 				8280DA8C2B52C0AC0070D534 /* DataController.swift */,
@@ -179,6 +169,20 @@
 				826D06962B19F3A500679984 /* WhiteHood_Bench_100UITestsLaunchTests.swift */,
 			);
 			path = "WhiteHood Bench 100UITests";
+			sourceTree = "<group>";
+		};
+		82D829D12C5A585A00C2C503 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				826D06A72B19F9E600679984 /* IntroView.swift */,
+				826D06A52B19F6CD00679984 /* MainView.swift */,
+				826D067B2B19F3A200679984 /* ContentView.swift */,
+				826D06B52B207AA600679984 /* ProgressView.swift */,
+				8280DA8E2B52C3040070D534 /* CDHistoryView.swift */,
+				826D06AB2B20691F00679984 /* WorkoutView.swift */,
+				826D06B12B20779800679984 /* MenuView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,21 +319,19 @@
 				826D06BA2B21DED900679984 /* VisualEffects.swift in Sources */,
 				826D06A42B19F3B400679984 /* Model.swift in Sources */,
 				826D06A62B19F6CD00679984 /* MainView.swift in Sources */,
-				824725092B6F96150041D434 /* ProgressView-ViewModel.swift in Sources */,
+				824725092B6F96150041D434 /* ProgressViewViewModel.swift in Sources */,
 				8265F1372B5E8860001F86DF /* CDWorkout+CoreDataProperties.swift in Sources */,
 				825E4F9C2B84A72A0009F499 /* IntroViewViewModel.swift in Sources */,
-				825E4FA02B84AB510009F499 /* CDHistoryViewViewModel.swift in Sources */,
 				826D06BD2B24694000679984 /* WorkoutViewViewModel.swift in Sources */,
 				826D06A82B19F9E600679984 /* IntroView.swift in Sources */,
 				8280DA8D2B52C0AC0070D534 /* DataController.swift in Sources */,
 				8280DA8B2B52C0590070D534 /* CDModel.xcdatamodeld in Sources */,
 				826D06B22B20779800679984 /* MenuView.swift in Sources */,
 				826D067C2B19F3A200679984 /* ContentView.swift in Sources */,
-				826D06AA2B19FAD600679984 /* ContentView-ViewModel.swift in Sources */,
+				826D06AA2B19FAD600679984 /* ContentViewViewModel.swift in Sources */,
 				826D067A2B19F3A200679984 /* WhiteHood_Bench_100App.swift in Sources */,
 				826D06B62B207AA600679984 /* ProgressView.swift in Sources */,
 				8265F1362B5E8860001F86DF /* CDWorkout+CoreDataClass.swift in Sources */,
-				825E4F9E2B84A99A0009F499 /* MainViewViewModel.swift in Sources */,
 				8280DA8F2B52C3040070D534 /* CDHistoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -493,9 +495,9 @@
 				DEVELOPMENT_TEAM = CR68PP2Z3F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "WhiteHood-Bench-100-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Жим Лежа 100 кг (Белый Капюшон)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -505,7 +507,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.01;
+				MARKETING_VERSION = 1.02;
 				PRODUCT_BUNDLE_IDENTIFIER = com.FGU.WHBenchPress;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -530,9 +532,9 @@
 				DEVELOPMENT_TEAM = CR68PP2Z3F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "WhiteHood-Bench-100-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Жим Лежа 100 кг (Белый Капюшон)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -542,7 +544,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.01;
+				MARKETING_VERSION = 1.02;
 				PRODUCT_BUNDLE_IDENTIFIER = com.FGU.WHBenchPress;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

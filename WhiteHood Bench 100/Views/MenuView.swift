@@ -38,5 +38,6 @@ struct MenuView_Previews: PreviewProvider {
         MenuView()
             .environmentObject(ContentViewViewModel())
             .environmentObject(WorkoutViewViewModel())
+            .environmentObject(ProgressViewViewModel())
     }
 }

@@ -13,7 +13,11 @@ class ProgressViewViewModel: ObservableObject {
     
     @Published var formulaBrzycki = 0.0
     @Published var formulaEpley = 0.0
-    @Published var formulaAverage = 0.0
+    @Published var formulaAverage =  0.0
     @Published var realStart : Bool = UserDefaults.standard.bool(forKey: "RealStart") == true ? true : false
+    
+    init() {
+        formulaAverage = (formulaEpley + formulaBrzycki) / 2
+    }
     
 }
