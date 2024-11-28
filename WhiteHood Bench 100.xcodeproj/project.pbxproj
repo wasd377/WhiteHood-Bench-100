@@ -76,7 +76,7 @@
 		8280DA8A2B52C0580070D534 /* CDModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CDModel.xcdatamodel; sourceTree = "<group>"; };
 		8280DA8C2B52C0AC0070D534 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		8280DA8E2B52C3040070D534 /* CDHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDHistoryView.swift; sourceTree = "<group>"; };
-		82D829D22C5A650E00C2C503 /* WhiteHood-Bench-100-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WhiteHood-Bench-100-Info.plist"; sourceTree = SOURCE_ROOT; };
+		82D829D22C5A650E00C2C503 /* WhiteHood-Bench-100-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WhiteHood-Bench-100-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,11 +104,75 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		826961432CF862940082935C /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				825E4F9B2B84A7290009F499 /* IntroViewViewModel.swift */,
+				826D06A72B19F9E600679984 /* IntroView.swift */,
+			);
+			path = Intro;
+			sourceTree = "<group>";
+		};
+		826961442CF862A30082935C /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				826D067B2B19F3A200679984 /* ContentView.swift */,
+				826D06A92B19FAD600679984 /* ContentViewViewModel.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		826961452CF862C10082935C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				826D06A52B19F6CD00679984 /* MainView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		826961462CF862CB0082935C /* Workout */ = {
+			isa = PBXGroup;
+			children = (
+				826D06BC2B24694000679984 /* WorkoutViewViewModel.swift */,
+				826D06AB2B20691F00679984 /* WorkoutView.swift */,
+			);
+			path = Workout;
+			sourceTree = "<group>";
+		};
+		826961472CF862D20082935C /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				826D06B52B207AA600679984 /* ProgressView.swift */,
+				824725082B6F96150041D434 /* ProgressViewViewModel.swift */,
+			);
+			path = Progress;
+			sourceTree = "<group>";
+		};
+		826961482CF862E60082935C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				826D06A32B19F3B400679984 /* Model.swift */,
+				8280DA8C2B52C0AC0070D534 /* DataController.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		826961492CF8655D0082935C /* History */ = {
+			isa = PBXGroup;
+			children = (
+				8280DA8E2B52C3040070D534 /* CDHistoryView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
 		826D066D2B19F3A200679984 = {
 			isa = PBXGroup;
 			children = (
 				8265F1342B5E8860001F86DF /* CDWorkout+CoreDataClass.swift */,
+				82D829D22C5A650E00C2C503 /* WhiteHood-Bench-100-Info.plist */,
+				8280DA892B52C0580070D534 /* CDModel.xcdatamodeld */,
 				8265F1352B5E8860001F86DF /* CDWorkout+CoreDataProperties.swift */,
+				826D067D2B19F3A400679984 /* Assets.xcassets */,
 				826D06782B19F3A200679984 /* WhiteHood Bench 100 */,
 				826D06892B19F3A500679984 /* WhiteHood Bench 100Tests */,
 				826D06932B19F3A500679984 /* WhiteHood Bench 100UITests */,
@@ -129,18 +193,9 @@
 		826D06782B19F3A200679984 /* WhiteHood Bench 100 */ = {
 			isa = PBXGroup;
 			children = (
-				82D829D22C5A650E00C2C503 /* WhiteHood-Bench-100-Info.plist */,
 				826D06792B19F3A200679984 /* WhiteHood_Bench_100App.swift */,
-				826D06A32B19F3B400679984 /* Model.swift */,
-				8280DA892B52C0580070D534 /* CDModel.xcdatamodeld */,
-				826D06A92B19FAD600679984 /* ContentViewViewModel.swift */,
-				825E4F9B2B84A7290009F499 /* IntroViewViewModel.swift */,
-				82D829D12C5A585A00C2C503 /* Views */,
-				824725082B6F96150041D434 /* ProgressViewViewModel.swift */,
-				826D06BC2B24694000679984 /* WorkoutViewViewModel.swift */,
-				826D067D2B19F3A400679984 /* Assets.xcassets */,
-				8280DA8C2B52C0AC0070D534 /* DataController.swift */,
-				826D06B92B21DED800679984 /* VisualEffects.swift */,
+				826961482CF862E60082935C /* Model */,
+				82D829D12C5A585A00C2C503 /* Screens */,
 				826D067F2B19F3A400679984 /* Preview Content */,
 			);
 			path = "WhiteHood Bench 100";
@@ -171,18 +226,19 @@
 			path = "WhiteHood Bench 100UITests";
 			sourceTree = "<group>";
 		};
-		82D829D12C5A585A00C2C503 /* Views */ = {
+		82D829D12C5A585A00C2C503 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				826D06A72B19F9E600679984 /* IntroView.swift */,
-				826D06A52B19F6CD00679984 /* MainView.swift */,
-				826D067B2B19F3A200679984 /* ContentView.swift */,
-				826D06B52B207AA600679984 /* ProgressView.swift */,
-				8280DA8E2B52C3040070D534 /* CDHistoryView.swift */,
-				826D06AB2B20691F00679984 /* WorkoutView.swift */,
 				826D06B12B20779800679984 /* MenuView.swift */,
+				826D06B92B21DED800679984 /* VisualEffects.swift */,
+				826961492CF8655D0082935C /* History */,
+				826961472CF862D20082935C /* Progress */,
+				826961462CF862CB0082935C /* Workout */,
+				826961452CF862C10082935C /* Main */,
+				826961442CF862A30082935C /* Content */,
+				826961432CF862940082935C /* Intro */,
 			);
-			path = Views;
+			path = Screens;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

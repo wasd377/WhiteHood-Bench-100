@@ -92,7 +92,13 @@ struct CDHistoryView: View {
             }
             
             Button("Начать сначала") {
+                UserDefaults.standard.removeObject(forKey: "StartBench")
+                UserDefaults.standard.removeObject(forKey: "RealStart")
+                UserDefaults.standard.removeObject(forKey: "StartDate")
+                UserDefaults.standard.removeObject(forKey: "BenchGoal")
+
                 vm.introduction.introCompleted = false
+                
             }
             
             

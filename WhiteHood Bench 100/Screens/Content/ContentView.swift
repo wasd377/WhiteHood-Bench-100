@@ -22,7 +22,7 @@ struct ContentView: View {
         
         NavigationView {
             VStack {
-               if vm.introduction.introCompleted == true {
+               if UserDefaults.standard.object(forKey: "StartBench") != nil {
                 
              MenuView()
                   

@@ -64,7 +64,7 @@ struct ProgressView: View {
            
            var body: some View {
                
-               var formulaAverage = (vmProgress.formulaEpley + vmProgress.formulaBrzycki) / 2
+               let formulaAverage = (vmProgress.formulaEpley + vmProgress.formulaBrzycki) / 2
             
                    VStack {
                        
@@ -198,7 +198,7 @@ struct ProgressView: View {
                                    Text("\(vmProgress.formulaBrzycki, specifier: "%.2f")")
                                    
                                    Text("**Среднее**")
-                                   Text("\(vmProgress.formulaAverage, specifier: "%.2f")")
+                                   Text("\(formulaAverage, specifier: "%.2f")")
                                }
                            }
                                 
