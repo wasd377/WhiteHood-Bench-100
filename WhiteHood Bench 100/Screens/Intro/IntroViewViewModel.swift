@@ -15,33 +15,40 @@ class IntroViewViewModel: ObservableObject  {
     @Published var benchGoal = ""
     @Published var calculatedBench = 0.0
     
-    func newStart() {
+    @discardableResult
+    func newStart() -> Bool {
+        guard let startingBench = Double(startingBenchString),
+              let startingReps = Int(startingRepsString),
+              startingReps > 0,
+              let goal = Double(benchGoal) else {
+            return false
+        }
         
-        if Int(startingRepsString)! == 1 {
-           calculatedBench = Double(startingBenchString)!
+        if startingReps == 1 {
+           calculatedBench = startingBench
         } else {
-            
-            let brzykiFormula = Int(Double(startingBenchString)!)*36/(37-Int(Double(startingRepsString)!))
-            let epleyFormula = Int(Double(startingBenchString)!*(1+Double(startingRepsString)!/30))
-            calculatedBench = Double((brzykiFormula+epleyFormula)/2)
-            
+            // Brzycki: защита от деления на ноль / отрицательного знаменателя при reps >= 37
+            let brzyckiDenominator = max(37 - startingReps, 1)
+            let brzyckiFormula = Int(startingBench) * 36 / brzyckiDenominator
+            let epleyFormula = Int(startingBench * (1 + Double(startingReps) / 30))
+            calculatedBench = Double((brzyckiFormula + epleyFormula) / 2)
         }
         
         // Используется для расчета максимума в жиме на старте.
-        let realStart = Int(startingRepsString)! == 1 ? true : false
+        let realStart = startingReps == 1
 
         // Сохраняем стартовые данные на устройстве
-        UserDefaults.standard.set(calculatedBench, forKey: "StartBench")
-        UserDefaults.standard.set(realStart, forKey: "RealStart")
-        UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "StartDate")
-        UserDefaults.standard.set(Double(benchGoal), forKey: "BenchGoal")
+        UserDefaults.standard.set(calculatedBench, forKey: ProgramDefaults.startBench)
+        UserDefaults.standard.set(realStart, forKey: ProgramDefaults.realStart)
+        UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: ProgramDefaults.startDate)
+        UserDefaults.standard.set(goal, forKey: ProgramDefaults.benchGoal)
+        UserDefaults.standard.removeObject(forKey: ProgramDefaults.newBench)
 
         // Обнуляем поля ввода (понадобится при сбросе прогресса и новом старте)
         startingRepsString = ""
         startingBenchString = ""
         benchGoal = ""
         calculatedBench = 0.0
+        return true
     }
-    
-    
 }

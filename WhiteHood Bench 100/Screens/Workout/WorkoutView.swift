@@ -15,7 +15,9 @@ struct WorkoutView: View {
  
     static var getHistoryFetchRequest: NSFetchRequest<CDWorkout> {
             let request: NSFetchRequest<CDWorkout> = CDWorkout.fetchRequest()
-            request.sortDescriptors = []
+            request.sortDescriptors = [
+                NSSortDescriptor(keyPath: \CDWorkout.id, ascending: true)
+            ]
             return request
        }
     
@@ -95,26 +97,33 @@ struct WorkoutView: View {
                     }
                     Spacer()
                     LargeButton(title: "Сохранить", disabled: Int(vmWorkout.enterReps) ?? 0 > 0 && Double(vmWorkout.enterWeight) ?? 0 > 0 ? false :  true, backgroundColor: .black) {
+                        guard let weight = Double(vmWorkout.enterWeight),
+                              let reps = Int16(vmWorkout.enterReps) else {
+                            return
+                        }
+                        
                         let savingworkout = CDWorkout(context: moc)
                         savingworkout.id = Int16(trainingId)
                         savingworkout.day = Int16(dayNumber)
                         savingworkout.isDone = true
-                        savingworkout.weight = Double(vmWorkout.enterWeight)!
-                        savingworkout.reps = Int16(vmWorkout.enterReps)!
+                        savingworkout.weight = weight
+                        savingworkout.reps = reps
                         
-                        
-                        DispatchQueue.main.async {
-                            try? moc.save()
-                            vm.restCalculation(CDhistory: CDhistory, weekN: weekNumber, dayNumber: dayNumber)
+                        do {
+                            try moc.save()
+                            vm.markRestNeeded()
+                            
+                            if trainingId == 4 && Int(vmWorkout.enterReps) ?? 0 > Int(vmWorkout.planReps) {
+                                UserDefaults.standard.set(weight, forKey: ProgramDefaults.newBench)
+                            }
+                            
+                            vmWorkout.enterReps = ""
+                            vmWorkout.enterWeight = ""
+                            vm.trainingActivated = false
+                        } catch {
+                            moc.rollback()
+                            print("Failed to save workout: \(error.localizedDescription)")
                         }
-                        
-                        if trainingId == 4 && Int(vmWorkout.enterReps) ?? 0 > Int(vmWorkout.planReps) {
-                            UserDefaults.standard.set(Double(vmWorkout.enterWeight), forKey: "NewBench")
-                        }
-                        
-                        vmWorkout.enterReps = ""
-                        vmWorkout.enterWeight = ""
-                        vm.trainingActivated = false
                         
                     }
                     Spacer()

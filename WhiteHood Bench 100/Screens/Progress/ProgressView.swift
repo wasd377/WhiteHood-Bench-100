@@ -19,7 +19,9 @@ struct ProgressView: View {
     
     static var getHistoryFetchRequest: NSFetchRequest<CDWorkout> {
             let request: NSFetchRequest<CDWorkout> = CDWorkout.fetchRequest()
-            request.sortDescriptors = []
+            request.sortDescriptors = [
+                NSSortDescriptor(keyPath: \CDWorkout.id, ascending: true)
+            ]
             return request
        }
     
@@ -28,8 +30,8 @@ struct ProgressView: View {
     let xMarkValues = stride(from: 0, to: 57, by: 7).map{ $0 }
     @State var yMarkValues = [0]
     let startingData = [
-        Progress(day: 1, weight: UserDefaults.standard.double(forKey: "StartBench"))]
-    let benchGoal = [Progress(day: 56, weight: UserDefaults.standard.double(forKey: "BenchGoal"))]
+        Progress(day: 1, weight: UserDefaults.standard.double(forKey: ProgramDefaults.startBench))]
+    let benchGoal = [Progress(day: 56, weight: UserDefaults.standard.double(forKey: ProgramDefaults.benchGoal))]
     
     @State var limitColors : [Color] = [.red, .yellow]
     @State var colorCount : Double = 5.0
@@ -37,14 +39,19 @@ struct ProgressView: View {
     
     
     func countAverage(CDhistory: FetchedResults<CDWorkout>) {
-        if CDhistory.isEmpty {
+        guard let last = CDhistory.last else {
+            vmProgress.formulaBrzycki = 0
+            vmProgress.formulaEpley = 0
+            vmProgress.formulaAverage = 0
             return
-        } else {
-            
-            vmProgress.formulaBrzycki = Double(CDhistory.last!.weight)*36/(37-Double(CDhistory.last!.reps))
-            vmProgress.formulaEpley = Double(CDhistory.last!.weight) * (1 + Double(CDhistory.last!.reps)/30)
-            
         }
+        
+        let reps = max(Double(last.reps), 1)
+        let brzyckiDenominator = max(37 - reps, 1)
+        vmProgress.formulaBrzycki = Double(last.weight) * 36 / brzyckiDenominator
+        vmProgress.formulaEpley = Double(last.weight) * (1 + reps / 30)
+        vmProgress.formulaAverage = (vmProgress.formulaEpley + vmProgress.formulaBrzycki) / 2
+        vmProgress.realStart = UserDefaults.standard.bool(forKey: ProgramDefaults.realStart)
     }
     
     func calculateColors() {
@@ -57,14 +64,16 @@ struct ProgressView: View {
     
     func calculateTableHeight() {
         yMarkValues = [0]
+        let goal = UserDefaults.standard.double(forKey: ProgramDefaults.benchGoal)
+        guard goal > 0 else { return }
         for number in 1...11 {
-            yMarkValues.append(Int(UserDefaults.standard.double(forKey: "BenchGoal"))/10*number)
+            yMarkValues.append(Int(goal)/10*number)
         }
     }
            
            var body: some View {
                
-               let formulaAverage = (vmProgress.formulaEpley + vmProgress.formulaBrzycki) / 2
+               let formulaAverage = vmProgress.formulaAverage
             
                    VStack {
                        
@@ -119,29 +128,26 @@ struct ProgressView: View {
                        .padding([.trailing, .leading], 20)
                        .chartLegend(.hidden) // optional
                        .chartXAxis {
-                           AxisMarks(preset: .aligned, values: xMarkValues) {
+                           AxisMarks(preset: .aligned, values: xMarkValues) { value in
                                AxisGridLine()
-                               let weekNumber = $0.as(Int.self)!
-                               let weekNumberLabel = weekNumber/7
-                               AxisValueLabel(centered: true) {
-                               
+                               if let weekNumber = value.as(Int.self) {
+                                   let weekNumberLabel = weekNumber/7
+                                   AxisValueLabel(centered: true) {
                                        Text("\(weekNumberLabel+1)")
-                                   
-                                     
+                                   }
                                }
-                                   
                            }
 
                        }
                        .chartYAxis {
-                           AxisMarks(values: yMarkValues) { //yAxisSize) {
+                           AxisMarks(values: yMarkValues) { value in
                                AxisGridLine()
                                AxisTick()
-                               let value = $0.as(Int.self)!
-                               AxisValueLabel {
-                                   Text("\(value) кг")
+                               if let intValue = value.as(Int.self) {
+                                   AxisValueLabel {
+                                       Text("\(intValue) кг")
+                                   }
                                }
-                               
                            }
                        }
                        
@@ -154,8 +160,8 @@ struct ProgressView: View {
                        }
                        
                        HStack {
-                           UserDefaults.standard.bool(forKey: "realStart") == true ? Text("Жим на старте: ") : Text("Жим на старте (в теории): ")
-                           Text("**\(UserDefaults.standard.double(forKey: "StartBench"),specifier: "%.2f")**")
+                           vmProgress.realStart ? Text("Жим на старте: ") : Text("Жим на старте (в теории): ")
+                           Text("**\(UserDefaults.standard.double(forKey: ProgramDefaults.startBench),specifier: "%.2f")**")
                                .foregroundColor(.blue)
                            Text("кг")
                        }
@@ -166,7 +172,7 @@ struct ProgressView: View {
                                    .foregroundColor(.red)
                            } else {
                                Text("**\(formulaAverage, specifier: "%.2f")**")
-                                   .foregroundColor(formulaAverage < UserDefaults.standard.double(forKey: "StartBench") ? .red : .green)
+                                   .foregroundColor(formulaAverage < UserDefaults.standard.double(forKey: ProgramDefaults.startBench) ? .red : .green)
                                }
                            Text("кг")
                        }

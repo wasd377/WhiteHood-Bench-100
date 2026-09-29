@@ -10,19 +10,14 @@ import CoreData
 
 struct ContentView: View {
     
-    @StateObject private var dataController = DataController()
-    
     @EnvironmentObject var vm: ContentViewViewModel
     @EnvironmentObject var vmWorkout: WorkoutViewViewModel
-    
-
-    
     
     var body: some View {
         
         NavigationView {
             VStack {
-               if UserDefaults.standard.object(forKey: "StartBench") != nil {
+               if vm.hasActiveProgram {
                 
              MenuView()
                   
@@ -33,7 +28,7 @@ struct ContentView: View {
             }
         }
     }
-    }
+}
 
 
 

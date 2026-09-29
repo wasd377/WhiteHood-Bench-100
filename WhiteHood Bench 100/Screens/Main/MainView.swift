@@ -28,48 +28,27 @@ struct MainView: View {
     
     @FetchRequest(fetchRequest: getHistoryFetchRequest) var CDhistory: FetchedResults<CDWorkout>
     
-//    func countAverage(CDhistory: FetchedResults<CDWorkout>) {
-//        if CDhistory.isEmpty {
-//            return
-//        } else {
-//
-//            vmProgress.formulaBrzycki = Double(CDhistory.last!.weight)*36/(37-Double(CDhistory.last!.reps))
-//            vmProgress.formulaEpley = Double(CDhistory.last!.weight) * (1 + Double(CDhistory.last!.reps)/30)
-//
-//            vmProgress.formulaAverage = (vmProgress.formulaEpley + vmProgress.formulaBrzycki) / 2
-//        }
-//    }
-    
-
-    func deleteHistory() {
-        do {
-            try moc.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "CDWorkout")))
-          try moc.save()
-        } catch {
-        }    }
-
-    
     var body: some View {
      
-        let modifiedDate = vm.addingDays > 0 ? Calendar.current.date(byAdding: .day, value: vm.addingDays, to: vm.today)! : Date()
+        let modifiedDate = vm.addingDays > 0
+            ? (Calendar.current.date(byAdding: .day, value: vm.addingDays, to: vm.today) ?? Date())
+            : Date()
         let currentDay = Calendar.current.dateComponents([.day], from: vm.startDay, to: modifiedDate)
         
         // Переводим Date Components в Int
-        let dayNumber = currentDay.day! + 1
+        let dayNumber = (currentDay.day ?? 0) + 1
          
-        let weekN = Int(ceil(Double(dayNumber)/7))
-        let rightTrainingId = CDhistory.count > 0 ? (CDhistory.count + 2 > weekN * 2 ? weekN * 2 : CDhistory.count + 2) : 2 //leftTrainingId + 1 //Int(weekN*2)
-        let leftTrainingId = rightTrainingId - 1 //CDhistory.count > 0 ? (Int(weekN*2-1) > CDhistory.last!.id ? ) : 1
+        let weekN = max(1, Int(ceil(Double(dayNumber)/7)))
+        let rightTrainingId = CDhistory.count > 0 ? (CDhistory.count + 2 > weekN * 2 ? weekN * 2 : CDhistory.count + 2) : 2
+        let leftTrainingId = rightTrainingId - 1
         
         
         // Просчитываем номер текущей тренировки
+        let lastWorkoutId = CDhistory.last.map { Int($0.id) } ?? 0
         let trainingId =
-        CDhistory.count > 0 ? (CDhistory.last!.id > leftTrainingId ? rightTrainingId : leftTrainingId) : 1
+        CDhistory.count > 0 ? (lastWorkoutId > leftTrainingId ? rightTrainingId : leftTrainingId) : 1
         
-//        // Просчитываем активность кнопки Тренировки, по правилам программы должно быть не более 2х занятий в неделю, примерно равномерно удаленных друг от друга.
-//        let trainingDisabled = CDhistory.count > 0 || CDhistory.count == weekN ?
-//        (Int16(dayNumber) < (CDhistory.last!.day + 3) ? true : false)
-//        : false
+        let programFinished = dayNumber > 56
         
         
         VStack(alignment: .leading) {
@@ -79,11 +58,11 @@ struct MainView: View {
                     Text("День \(dayNumber)")
                         .font(.system(size: 16, weight: .bold))
                     Spacer()
-                    Text("Неделя \(weekN)")
+                    Text("Неделя \(min(weekN, 8))")
                         .font(.system(size: 32, weight: .bold))
                     Spacer()
                     Group
-                    { currentDay.day! < 29 ? Text("Блок 1") : Text("Блок 2")
+                    { dayNumber < 29 ? Text("Блок 1") : Text("Блок 2")
                     }
                         .font(.system(size: 16, weight: .bold))
                     Spacer()
@@ -95,18 +74,18 @@ struct MainView: View {
                     
                     RoundedRectangle(cornerRadius: 15)
                         .frame(width: 24, height: 24)
-                        .foregroundColor(CDhistory.count >= leftTrainingId ? (CDhistory[leftTrainingId-1].isDone == true ? Color.green : Color.red) : Color.red)
+                        .foregroundColor(CDhistory.count >= leftTrainingId && leftTrainingId > 0 ? (CDhistory[leftTrainingId-1].isDone == true ? Color.green : Color.red) : Color.red)
                     Spacer()
                     Text("Тренировка №\(rightTrainingId)")
                     RoundedRectangle(cornerRadius: 15)
                         .frame(width: 24, height: 24)
-                        .foregroundColor(CDhistory.count >= rightTrainingId ? (CDhistory[leftTrainingId-1].isDone == true ? Color.green : Color.red) : Color.red)
+                        .foregroundColor(CDhistory.count >= rightTrainingId && rightTrainingId > 0 ? (CDhistory[rightTrainingId-1].isDone == true ? Color.green : Color.red) : Color.red)
                 }
                 .padding(.bottom, 10)
                 .padding([.leading, .trailing], 20)
                 HStack{
                     Spacer()
-                    LargeButton(title: "Потренироваться", disabled: vm.trainingDisabled, backgroundColor: .black) {
+                    LargeButton(title: "Потренироваться", disabled: vm.trainingDisabled || programFinished, backgroundColor: .black) {
                         vm.trainingActivated = true
                     }
                     Spacer()
@@ -114,7 +93,13 @@ struct MainView: View {
               
                 
                 // Поясняем, почему кнопка заблокирована
-                if vm.trainingDisabled {
+                if programFinished {
+                    Text("Программа на 8 недель завершена. Можно начать сначала.")
+                        .multilineTextAlignment(.center)
+                        .font(.system(size: 14))
+                        .foregroundColor(.secondary)
+                        .padding([.trailing, .leading], 20)
+                } else if vm.trainingDisabled {
                     Text("Между тренировками должно пройти не менее 2-х дней отдыха, чтобы организм восстановился.")
                         .multilineTextAlignment(.center)
                         .font(.system(size: 14))
@@ -136,7 +121,7 @@ struct MainView: View {
             }
              
                 else {
-                    WorkoutView(trainingId: trainingId, dayNumber: dayNumber, weekNumber: weekN)
+                    WorkoutView(trainingId: trainingId, dayNumber: dayNumber, weekNumber: min(weekN, 8))
                 }
             
             Spacer()
@@ -153,16 +138,14 @@ struct MainView: View {
             Spacer()
         }
         .alert(isPresented: $showingAlert) {
-            Alert(title: Text("Программа закончена!"), message: Text("8 недель прошли, а это значит, что пора подводить итоги! В начале программы ваш жим лежа составлял \(UserDefaults.standard.double(forKey: "StartBench"),specifier: "%.2f") кг, а сейчас составляет уже \((vmProgress.formulaAverage),specifier: "%.2f"). Поздравляем!") , dismissButton: .default(Text("Начать сначала")) {
-                UserDefaults.resetStandardUserDefaults()
-                deleteHistory()
-                vm.introduction.introCompleted = false
-                vm.addingDays = 0
+            Alert(title: Text("Программа закончена!"), message: Text("8 недель прошли, а это значит, что пора подводить итоги! В начале программы ваш жим лежа составлял \(UserDefaults.standard.double(forKey: ProgramDefaults.startBench),specifier: "%.2f") кг, а сейчас составляет уже \((vmProgress.formulaAverage),specifier: "%.2f"). Поздравляем!") , dismissButton: .default(Text("Начать сначала")) {
+                DataController.deleteAllWorkouts(in: moc)
+                vm.clearProgram()
             })
                }
         .onAppear {
-         //   countAverage(CDhistory: CDhistory)
-            if dayNumber > 3 {
+            vm.restCalculation(CDhistory: CDhistory, weekN: weekN, dayNumber: dayNumber)
+            if programFinished {
                 showingAlert = true
             }
         }

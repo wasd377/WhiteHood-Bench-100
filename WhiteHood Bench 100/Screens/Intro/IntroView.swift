@@ -14,13 +14,6 @@ struct IntroView: View {
     @EnvironmentObject var vmIntro : IntroViewViewModel
     @Environment(\.managedObjectContext) var moc
     
-    func deleteHistory() {
-        do {
-            try moc.execute(NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: "CDWorkout")))
-          try moc.save()
-        } catch {
-        }    }
-
     var body: some View {
               
             VStack {
@@ -77,21 +70,22 @@ struct IntroView: View {
                 
                 LargeButton(title: "Начать", disabled: vmIntro.startingRepsString.isEmpty || vmIntro.startingBenchString.isEmpty || vmIntro.benchGoal.isEmpty ? true :  false) {
                     
-                    vm.introduction.introCompleted = true
-                    vmIntro.newStart()
+                    if vmIntro.newStart() {
+                        vm.applyProgramStart()
+                    }
                 }
-
-                        }
-            .onAppear{
-                UserDefaults.resetStandardUserDefaults()
-                deleteHistory()
+            }
+            .onAppear {
+                // Prefs уже очищены через clearProgram(); здесь добиваем историю Core Data
+                // и UI-флаги, без повторного Reset() (чтобы не гоняться с applyProgramStart).
+                DataController.deleteAllWorkouts(in: moc)
                 vm.addingDays = 0
                 vm.trainingDisabled = false
+                vm.trainingActivated = false
+                vm.historyKOSTYL = []
             }
-            }
-        }
-    
-
+    }
+}
 
 struct IntroView_Previews: PreviewProvider {
     

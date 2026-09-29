@@ -23,6 +23,7 @@ struct CDHistoryView: View {
        }
     
     func CDhistoryKOSTYLCalculation() {
+        vm.historyKOSTYL = []
         for workout in CDhistory {
             if workout.isDone == true {
                 vm.historyKOSTYL.append(Int(ceil(Double(workout.day)/7)))
@@ -31,12 +32,6 @@ struct CDHistoryView: View {
     }
     
     @FetchRequest(fetchRequest: getHistoryFetchRequest) var CDhistory: FetchedResults<CDWorkout>
-    
-
-
-    
-
-    
     
     var body: some View {
         
@@ -73,7 +68,6 @@ struct CDHistoryView: View {
                                             HStack {
                                                 Text("Повторения:")
                                                 Text("\(item.reps)")
-                                                //Text("раз")
                                             }
                                         }
                                         
@@ -92,13 +86,8 @@ struct CDHistoryView: View {
             }
             
             Button("Начать сначала") {
-                UserDefaults.standard.removeObject(forKey: "StartBench")
-                UserDefaults.standard.removeObject(forKey: "RealStart")
-                UserDefaults.standard.removeObject(forKey: "StartDate")
-                UserDefaults.standard.removeObject(forKey: "BenchGoal")
-
-                vm.introduction.introCompleted = false
-                
+                DataController.deleteAllWorkouts(in: moc)
+                vm.clearProgram()
             }
             
             

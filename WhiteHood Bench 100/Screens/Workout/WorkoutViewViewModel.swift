@@ -38,21 +38,21 @@ class WorkoutViewViewModel: ObservableObject {
     ]
     
     func calculateWorkout(workoutWeek: Int) {
-    
-        var actualBench : Double?
+        // После 8 недель weekN > 8 — раньше падало на force-unwrap словаря.
+        let week = min(max(workoutWeek, 1), 8)
         
-        if UserDefaults.standard.object(forKey: "NewBench") != nil {
-            actualBench = UserDefaults.standard.double(forKey: "NewBench")
+        let actualBench: Double
+        if UserDefaults.standard.object(forKey: ProgramDefaults.newBench) != nil {
+            actualBench = UserDefaults.standard.double(forKey: ProgramDefaults.newBench)
         } else {
-           actualBench = UserDefaults.standard.double(forKey: "StartBench")
+           actualBench = UserDefaults.standard.double(forKey: ProgramDefaults.startBench)
         }
         
-        planWeight = weeklyWeight[workoutWeek]! * actualBench! //UserDefaults.standard.double(forKey: "StartBench")
-        planReps = weeklyReps[workoutWeek]!
+        planWeight = (weeklyWeight[week] ?? 1.0) * actualBench
+        planReps = weeklyReps[week] ?? 5
     }
     
     init() {
     
     }
-    
 }
