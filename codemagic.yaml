@@ -9,7 +9,7 @@
 #    для bundle id com.FGU.WHBenchPress
 # 4) Application variables → APP_STORE_APPLE_ID = Apple ID приложения из App Store Connect
 #    (App Store Connect → App → App Information → Apple ID)
-# 5) (опционально) CM_EMAIL_RECIPIENTS — email для уведомлений
+# 5) (опционально) publishing.email.recipients — список email для уведомлений
 
 workflows:
   ios-app-store:
@@ -57,12 +57,8 @@ workflows:
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
     publishing:
-      email:
-        recipients:
-          - $CM_EMAIL_RECIPIENTS
-        notify:
-          success: true
-          failure: true
+      # Email: добавьте блок email.recipients с реальными адресами
+      # (не используйте $CM_EMAIL_RECIPIENTS — пустая/none переменная ломает валидацию)
       app_store_connect:
         auth: integration
         submit_to_testflight: true
